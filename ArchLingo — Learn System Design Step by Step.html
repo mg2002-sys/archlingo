@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)https://b2607f8b048001000014994efac107b19223d000000000000000001.proxy.googlers.com/index.html -->
+<html lang="en" class="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#090d16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ArchLingo">
+  <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;ArchLingo %E2%80%94 System Design&quot;,&quot;short_name&quot;:&quot;ArchLingo&quot;,&quot;start_url&quot;:&quot;./archlingo_game.html&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#090d16%22,%22theme_color%22:%22#10b981%22,%22icons%22:[{%22src%22:%22https://www.gstatic.com/images/branding/product/2x/code_48dp.png%22,%22sizes%22:%2296x96%22,%22type%22:%22image/png%22}]}">
+  <title>ArchLingo — Learn System Design Step by Step</title>
+  <script src="./ArchLingo — Learn System Design Step by Step_files/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --background: #090d16;
+      --foreground: #f8fafc;
+      --card: #111827;
+      --border: #1e293b;
+      --muted-foreground: #94a3b8;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.45)); }
+      50% { filter: drop-shadow(0 0 14px rgba(34, 197, 94, 0.85)); }
+    }
+    @keyframes packetFlow {
+      0% { stroke-dashoffset: 48; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+    .animate-packet {
+      stroke-dasharray: 8 8;
+      animation: packetFlow 0.85s linear infinite;
+    }
+    .animate-packet-fast {
+      stroke-dasharray: 8 8;
+      animation: packetFlow 0.35s linear infinite;
+    }
+    .animate-float {
+      animation: floatBob 3s ease-in-out infinite;
+    }
+    .animate-shake {
+      animation: shakeError 0.45s ease-in-out;
+    }
+    .glow-green {
+      animation: pulseGlow 2.2s infinite;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 9999px; }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.top-0{top:0px}.z-30{z-index:30}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mb-1{margin-bottom:0.25rem}.mb-1\.5{margin-bottom:0.375rem}.mb-6{margin-bottom:1.5rem}.mt-0\.5{margin-top:0.125rem}.mt-1{margin-top:0.25rem}.mt-3{margin-top:0.75rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-3{height:0.75rem}.h-48{height:12rem}.h-6{height:1.5rem}.h-full{height:100%}.h-12{height:3rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-14{width:3.5rem}.w-16{width:4rem}.w-36{width:9rem}.w-6{width:1.5rem}.w-full{width:100%}.w-12{width:3rem}.min-w-\[600px\]{min-width:600px}.max-w-5xl{max-width:64rem}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-2\.5{gap:0.625rem}.gap-3{gap:0.75rem}.gap-3\.5{gap:0.875rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-\[\#1e293b\]{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-amber-500\/25{border-color:rgb(245 158 11 / 0.25)}.border-emerald-500\/30{border-color:rgb(16 185 129 / 0.3)}.border-emerald-500\/50{border-color:rgb(16 185 129 / 0.5)}.border-rose-500\/20{border-color:rgb(244 63 94 / 0.2)}.border-rose-500\/25{border-color:rgb(244 63 94 / 0.25)}.border-rose-500\/40{border-color:rgb(244 63 94 / 0.4)}.border-sky-500\/25{border-color:rgb(14 165 233 / 0.25)}.border-sky-500\/30{border-color:rgb(14 165 233 / 0.3)}.border-teal-500\/30{border-color:rgb(20 184 166 / 0.3)}.border-emerald-500\/60{border-color:rgb(16 185 129 / 0.6)}.bg-\[\#090d16\]{--tw-bg-opacity:1;background-color:rgb(9 13 22 / var(--tw-bg-opacity, 1))}.bg-\[\#111827\]{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-\[\#111827\]\/95{background-color:rgb(17 24 39 / 0.95)}.bg-amber-500\/10{background-color:rgb(245 158 11 / 0.1)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-emerald-500\/15{background-color:rgb(16 185 129 / 0.15)}.bg-emerald-500\/20{background-color:rgb(16 185 129 / 0.2)}.bg-rose-500\/10{background-color:rgb(244 63 94 / 0.1)}.bg-rose-500\/20{background-color:rgb(244 63 94 / 0.2)}.bg-sky-500\/10{background-color:rgb(14 165 233 / 0.1)}.bg-sky-500\/15{background-color:rgb(14 165 233 / 0.15)}.bg-slate-700{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.bg-slate-800\/80{background-color:rgb(30 41 59 / 0.8)}.bg-slate-950\/70{background-color:rgb(2 6 23 / 0.7)}.bg-teal-500\/15{background-color:rgb(20 184 166 / 0.15)}.bg-\[\#111827\]\/50{background-color:rgb(17 24 39 / 0.5)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-emerald-400{--tw-gradient-from:#34d399 var(--tw-gradient-from-position);--tw-gradient-to:rgb(52 211 153 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-emerald-500{--tw-gradient-from:#10b981 var(--tw-gradient-from-position);--tw-gradient-to:rgb(16 185 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-emerald-950\/60{--tw-gradient-from:rgb(2 44 34 / 0.6) var(--tw-gradient-from-position);--tw-gradient-to:rgb(2 44 34 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-teal-900\/40{--tw-gradient-to:rgb(19 78 74 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(19 78 74 / 0.4) var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-slate-900\/60{--tw-gradient-to:rgb(15 23 42 / 0.6) var(--tw-gradient-to-position)}.to-teal-300{--tw-gradient-to:#5eead4 var(--tw-gradient-to-position)}.to-teal-400{--tw-gradient-to:#2dd4bf var(--tw-gradient-to-position)}.to-teal-600{--tw-gradient-to:#0d9488 var(--tw-gradient-to-position)}.to-teal-500{--tw-gradient-to:#14b8a6 var(--tw-gradient-to-position)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-1{padding:0.25rem}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-3\.5{padding-left:0.875rem;padding-right:0.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.pb-4{padding-bottom:1rem}.text-left{text-align:left}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-\[\#94a3b8\]{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-\[\#f8fafc\]{--tw-text-opacity:1;color:rgb(248 250 252 / var(--tw-text-opacity, 1))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-emerald-300{--tw-text-opacity:1;color:rgb(110 231 183 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-rose-300{--tw-text-opacity:1;color:rgb(253 164 175 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-950{--tw-text-opacity:1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.text-teal-300{--tw-text-opacity:1;color:rgb(94 234 212 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.accent-emerald-500{accent-color:#10b981}.opacity-80{opacity:0.8}.opacity-90{opacity:0.9}.opacity-75{opacity:0.75}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.ring-emerald-500\/30{--tw-ring-color:rgb(16 185 129 / 0.3)}.drop-shadow{--tw-drop-shadow:drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur{--tw-backdrop-blur:blur(8px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-500{transition-duration:500ms}.selection\:bg-emerald-500 *::selection{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.selection\:bg-emerald-500::selection{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-emerald-500\/50:hover{border-color:rgb(16 185 129 / 0.5)}.hover\:bg-\[\#090d16\]:hover{--tw-bg-opacity:1;background-color:rgb(9 13 22 / var(--tw-bg-opacity, 1))}.hover\:bg-emerald-400:hover{--tw-bg-opacity:1;background-color:rgb(52 211 153 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-500\/30:hover{background-color:rgb(244 63 94 / 0.3)}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:inline{display:inline}.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}@media (min-width: 768px){.md\:w-auto{width:auto}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:flex-col{flex-direction:column}.md\:items-center{align-items:center}.md\:p-6{padding:1.5rem}.md\:text-sm{font-size:0.875rem;line-height:1.25rem}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head>
+<body class="bg-[#090d16] text-[#f8fafc] antialiased min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <!-- Confetti Canvas Overlay -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- TOP NAVIGATION / HUD -->
+  <header class="sticky top-0 z-30 bg-[#111827]/95 backdrop-blur border-b border-[#1e293b] px-4 py-3">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand + Mascot Mini -->
+      <div class="flex items-center gap-3">
+        <div onclick="mascotQuip()" class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md cursor-pointer hover:scale-105 transition-transform" title="Click Archie for an Architecture Tip!">
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">ArchLingo</span>
+            <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">System Design</span>
+          </div>
+          <p class="text-xs text-[#94a3b8]">Learn, simulate &amp; master distributed architecture step by step</p>
+        </div>
+      </div>
+
+      <!-- Mode Tabs -->
+      <nav class="flex items-center gap-1 bg-[#090d16] p-1 rounded-xl border border-[#1e293b]">
+        <button id="tab-map" onclick="switchMainTab(&#39;map&#39;)" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500 text-slate-950 shadow-sm">
+          🗺️ Skill Path
+        </button>
+        <button id="tab-sandbox" onclick="switchMainTab(&#39;sandbox&#39;)" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-[#94a3b8] hover:text-white">
+          ⚡ Live Traffic Lab
+        </button>
+        <button id="tab-guidebook" onclick="switchMainTab(&#39;guidebook&#39;)" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-[#94a3b8] hover:text-white">
+          📚 Concept Guidebook
+        </button>
+      </nav>
+
+      <!-- Gamification HUD stats -->
+      <div class="flex items-center gap-2.5">
+        <!-- Streak -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-400 text-xs font-bold" title="Daily Learning Streak">
+          <span>🔥</span>
+          <span id="hud-streak">3</span>
+          <span class="hidden sm:inline text-[10px] font-normal opacity-80">STREAK</span>
+        </div>
+        <!-- XP -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/10 border border-sky-500/25 text-sky-400 text-xs font-bold" title="Architecture Experience Points">
+          <span>⚡</span>
+          <span id="hud-xp">120</span>
+          <span class="hidden sm:inline text-[10px] font-normal opacity-80">XP</span>
+        </div>
+        <!-- SLA Hearts -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs font-bold" title="SLA Uptime Hearts (Refills on Practice)">
+          <span>❤️</span>
+          <span id="hud-hearts">5</span>
+        </div>
+        <!-- Unlock All / Reset Helper -->
+        <button onclick="unlockAllLevels()" class="px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-[#1e293b] text-[11px] text-teal-300 font-semibold transition-colors" title="Unlock all 10 levels for review">
+          🔓 Unlock All 10 Levels
+        </button>
+        <!-- Audio Toggle -->
+        <button id="btn-sound" onclick="toggleAudio()" class="p-2 rounded-xl bg-[#090d16] border border-[#1e293b] text-xs hover:border-emerald-500/50 transition-colors" title="Toggle Sound Effects">
+          🔊
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 md:p-6">
+
+    <!-- ==========================================
+         VIEW 1: SKILL TREE MAP (DEFAULT VIEW)
+         ========================================== -->
+    <section id="view-map" class="space-y-6">
+      <!-- Welcome / Birdbrain Adaptive Banner -->
+      <div class="bg-gradient-to-r from-emerald-950/60 via-teal-900/40 to-slate-900/60 border border-emerald-500/30 rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-5 shadow-lg">
+        <div class="flex items-center gap-4">
+          <!-- Animated SVG Mascot: Archie the Cloud Architect -->
+          <div id="mascot-hero" onclick="mascotQuip()" class="w-16 h-16 shrink-0 animate-float cursor-pointer" title="Click me for a Principal Architect tip!">
+        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
+          
+          <!-- Cloud/Robot Owl Body -->
+          <rect x="18" y="22" width="64" height="56" rx="22" fill="#34d399" stroke="#059669" stroke-width="3"></rect>
+          <!-- Screen Faceplate -->
+          <rect x="26" y="30" width="48" height="36" rx="14" fill="#ecfdf5"></rect>
+          <!-- Antenna -->
+          <line x1="50" y1="10" x2="50" y2="22" stroke="#059669" stroke-width="4" stroke-linecap="round"></line>
+          <circle cx="50" cy="8" r="5" fill="#10b981"></circle>
+          <!-- Eyes & Mouth -->
+          <circle cx="38" cy="44" r="5" fill="#0f172a"></circle><circle cx="39.5" cy="42.5" r="1.8" fill="#ffffff"></circle>
+          <circle cx="62" cy="44" r="5" fill="#0f172a"></circle><circle cx="63.5" cy="42.5" r="1.8" fill="#ffffff"></circle>
+          <path d="M 44 55 Q 50 60 56 55" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"></path>
+          <!-- Bowtie / Server Rack Badge -->
+          <polygon points="43,73 50,77 43,81" fill="#0f172a"></polygon>
+          <polygon points="57,73 50,77 57,81" fill="#0f172a"></polygon>
+          <circle cx="50" cy="77" r="2.5" fill="#10b981"></circle>
+        </svg>
+      </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                Teach First • Quiz Second
+              </span>
+              <span id="birdbrain-status" class="text-xs text-teal-300 font-medium">
+                🧠 Interactive Concept Playgrounds Active
+              </span>
+            </div>
+            <h1 class="text-lg md:text-xl font-bold text-white">
+              Welcome back, Principal Architect!
+            </h1>
+            <p id="hero-speech-text" class="text-xs md:text-sm text-[#94a3b8] max-w-xl">
+              Each unit begins with an <strong class="text-white">Interactive Concept Playground</strong> where you simulate real architecture failures before solving 3 progressive blueprint &amp; incident triage challenges.
+            </p>
+            <div class="mt-3 flex flex-wrap items-center gap-2.5">
+              <button onclick="unlockAllLevels()" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold shadow-md transition-transform active:scale-95 flex items-center gap-1.5">
+                <span>🔓</span>
+                <span>Unlock All 10 Levels</span>
+              </button>
+              <span class="text-[11px] text-[#94a3b8]">Jump directly to any of the 10 architecture levels whenever you want</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mastery Summary Pills -->
+        <div class="flex flex-wrap md:flex-col gap-2 shrink-0 w-full md:w-auto">
+          <div class="text-xs font-semibold text-[#94a3b8] uppercase tracking-wider mb-0.5">Your Mastery Radar</div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="px-3 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] flex items-center justify-between gap-2">
+              <span>⚖️ Load Balancing</span>
+              <span id="mastery-lb" class="font-bold text-emerald-400">25%</span>
+            </div>
+            <div class="px-3 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] flex items-center justify-between gap-2">
+              <span>⚡ Caching &amp; CDN</span>
+              <span id="mastery-cache" class="font-bold text-sky-400">0%</span>
+            </div>
+            <div class="px-3 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] flex items-center justify-between gap-2">
+              <span>🧩 Data Sharding</span>
+              <span id="mastery-shard" class="font-bold text-purple-400">0%</span>
+            </div>
+            <div class="px-3 py-1.5 rounded-lg bg-[#111827] border border-[#1e293b] flex items-center justify-between gap-2">
+              <span>🛡️ Resilience</span>
+              <span id="mastery-resilience" class="font-bold text-amber-400">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL PATH STEPPING STONES -->
+      <div class="relative py-2">
+        <div id="skill-nodes-container" class="space-y-4"><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827] border-emerald-500/60 shadow-lg ring-1 ring-emerald-500/30">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 glow-green">
+              1
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  ⚖️ Load Balancing
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +100 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 1: Stateless Tiers &amp; Load Balancing</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Scale from 1 server to 100k concurrent users without losing user sessions.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(1)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              2
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  ⚡ Caching &amp; CDN
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +150 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 2: Caching Strategies &amp; Cache Stampedes</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Drop read latency from 450ms to 2ms and survive viral celebrity traffic spikes.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(2)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              3
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🧩 Data Sharding
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +200 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 3: Database Sharding &amp; Consistent Hashing</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Scale beyond single-node storage limits with zero-downtime horizontal partitioning.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(3)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              4
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🛡️ Resilience
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 4: Async Kafka, Rate Limiting &amp; Circuit Breakers</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Prevent cascading failures when downstream microservices slow down or crash.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(4)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              5
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🗳️ Consensus &amp; Quorum
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 5: Replication, Quorum (R+W&gt;N) &amp; Raft/Paxos Consensus</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Guarantee strong consistency, survive node failures, and prevent split-brain data corruption.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(5)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              6
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🌍 Global Active-Active
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 6: Global Multi-Region Active-Active, Anycast &amp; Spanner TrueTime</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Route global users with &lt;20ms latency and achieve external consistency across continents.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(6)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              7
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  💾 Storage Engines
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 7: Storage Engines Under the Hood (B-Trees vs. LSM-Trees &amp; Bloom Filters)</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Master disk page layouts, write amplification, SSTable compaction, and probabilistic filters.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(7)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              8
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🕸️ Service Mesh &amp; RPC
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 8: Microservices, gRPC vs. REST, Service Mesh &amp; API Gateways</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Optimize internal East-West RPC traffic with HTTP/2 binary multiplexing and Envoy sidecars.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(8)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              9
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  🔍 Search &amp; Vectors
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 9: Search Engines, Inverted Indexes &amp; Vector Databases (HNSW/RAG)</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Combine lexical BM25 inverted indexes with dense semantic HNSW vector graphs for AI &amp; search.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(9)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div><div class="relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#111827]/50 border-[#1e293b] opacity-75">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 bg-slate-800 text-slate-400">
+              10
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  📈 Observability &amp; Tracing
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +250 XP</span>
+                
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">Unit 10: Observability, Distributed Tracing &amp; Tail Latency Amplification</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">Conquer the math of microservice fanout tail latency, OpenTelemetry traces, and hedged requests.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(10)" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md">
+              ▶ Start Level (Teach + Quiz)
+            </button>
+          </div>
+        </div></div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         VIEW 2: ACTIVE LESSON / LEVEL SESSION
+         (TEACH STEP -> QUIZ STEPS -> SUMMARY)
+         ========================================== -->
+    <section id="view-lesson" class="hidden space-y-5">
+      <!-- Top Lesson Progress Header -->
+      <div class="bg-[#111827] border border-[#1e293b] rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+        <button onclick="exitLesson()" class="p-2 rounded-xl hover:bg-[#090d16] text-[#94a3b8] hover:text-white transition-colors" title="Exit to Skill Path">
+          ✕
+        </button>
+        <div class="flex-1">
+          <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
+            <span id="lesson-phase-badge" class="text-emerald-400 uppercase tracking-wider">📖 STEP 1 OF 4: INTERACTIVE CONCEPT LESSON</span>
+            <span id="lesson-step-counter" class="text-[#94a3b8]">25% Complete</span>
+          </div>
+          <div class="w-full h-3 bg-[#090d16] rounded-full overflow-hidden border border-[#1e293b]">
+            <div id="lesson-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500 rounded-full" style="width: 25%"></div>
+          </div>
+        </div>
+        <div class="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold">
+          <span>❤️</span>
+          <span id="lesson-hearts">5</span>
+        </div>
+      </div>
+
+      <!-- Mascot + Interactive Prompt Header -->
+      <div class="bg-[#111827] border border-[#1e293b] rounded-2xl p-5 shadow-sm">
+        <div class="flex items-start gap-4">
+          <div id="lesson-mascot" class="w-14 h-14 shrink-0"></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span id="lesson-unit-tag" class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-300 border border-teal-500/30">
+                Level 1
+              </span>
+              <span id="lesson-type-tag" class="text-[11px] font-semibold text-[#94a3b8]">
+                Interactive Concept Builder
+              </span>
+            </div>
+            <h2 id="lesson-title" class="text-lg md:text-xl font-bold text-white">
+              Why Stateful Servers Break at Scale
+            </h2>
+            <p id="lesson-subtitle" class="text-xs md:text-sm text-[#94a3b8] mt-1">
+              Experiment with the architecture below to see how session state impacts load balancing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DYNAMIC LESSON STAGE (Teach Interactive Simulator OR Quiz Canvas) -->
+      <div id="lesson-stage-container" class="bg-[#111827] border border-[#1e293b] rounded-2xl p-5 md:p-6 shadow-md space-y-5">
+        <!-- Rendered by renderCurrentLessonStep() -->
+      </div>
+
+      <!-- BOTTOM FEEDBACK DRAWER (Shows Explanation & Next Button) -->
+      <div id="lesson-feedback-drawer" class="hidden rounded-2xl p-5 border transition-all shadow-lg">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3.5">
+            <div id="feedback-icon" class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 font-bold">
+              ✓
+            </div>
+            <div>
+              <h4 id="feedback-heading" class="font-bold text-base">SLA Verified! Architecture Passed.</h4>
+              <p id="feedback-explanation" class="text-xs md:text-sm mt-0.5 leading-relaxed opacity-90"></p>
+            </div>
+          </div>
+          <button id="btn-next-step" onclick="advanceLessonStep()" class="w-full md:w-auto px-6 py-3 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md transition-transform active:scale-95 shrink-0">
+            Continue →
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         VIEW 3: LIVE TRAFFIC LAB (SANDBOX SIMULATOR)
+         ========================================== -->
+    <section id="view-sandbox" class="hidden space-y-6">
+      <div class="bg-[#111827] border border-[#1e293b] rounded-2xl p-5 md:p-6 space-y-5">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#1e293b] pb-4">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-400 border border-sky-500/30">
+              Interactive Architecture Simulator
+            </span>
+            <h2 class="text-xl font-bold mt-1">⚡ Live Traffic &amp; Latency Stress Lab</h2>
+            <p class="text-xs md:text-sm text-[#94a3b8]">
+              Toggle architectural components, trigger viral traffic spikes, and observe p99 latency, cache offload, and database CPU load in real time.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="triggerViralSpike()" class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-colors">
+              🔥 Simulate 120k Viral Spike
+            </button>
+            <div class="text-right">
+              <div class="text-xs text-[#94a3b8]">Simulated Load</div>
+              <div id="sandbox-qps-display" class="text-lg font-extrabold text-emerald-400">25,000 QPS</div>
+            </div>
+            <input id="sandbox-qps-slider" type="range" min="1000" max="150000" step="1000" value="25000" oninput="updateSandboxSimulation()" class="w-36 accent-emerald-500 cursor-pointer">
+          </div>
+        </div>
+
+        <!-- Component Toggles -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <button id="sb-toggle-cdn" onclick="toggleSandboxComponent(&#39;cdn&#39;)" class="p-3 rounded-xl border text-left transition-all bg-emerald-500/15 border-emerald-500/50">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold">🌐 Edge CDN</span>
+              <span id="sb-badge-cdn" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-bold">ON</span>
+            </div>
+            <p class="text-[11px] text-[#94a3b8] mt-1">Offloads 65% static &amp; edge reads</p>
+          </button>
+
+          <button id="sb-toggle-redis" onclick="toggleSandboxComponent(&#39;redis&#39;)" class="p-3 rounded-xl border text-left transition-all bg-emerald-500/15 border-emerald-500/50">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold">⚡ Redis Cache</span>
+              <span id="sb-badge-redis" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-bold">ON</span>
+            </div>
+            <p class="text-[11px] text-[#94a3b8] mt-1">Sub-2ms in-memory read hits</p>
+          </button>
+
+          <button id="sb-toggle-shards" onclick="toggleSandboxComponent(&#39;shards&#39;)" class="p-3 rounded-xl border text-left transition-all bg-[#090d16] border-[#1e293b]">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold">🧩 DB Sharding (4x)</span>
+              <span id="sb-badge-shards" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">OFF</span>
+            </div>
+            <p class="text-[11px] text-[#94a3b8] mt-1">Splits write &amp; read load 4 ways</p>
+          </button>
+
+          <button id="sb-toggle-kafka" onclick="toggleSandboxComponent(&#39;kafka&#39;)" class="p-3 rounded-xl border text-left transition-all bg-[#090d16] border-[#1e293b]">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold">📨 Kafka Queue</span>
+              <span id="sb-badge-kafka" class="text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">OFF</span>
+            </div>
+            <p class="text-[11px] text-[#94a3b8] mt-1">Buffers burst writes smoothly</p>
+          </button>
+        </div>
+
+        <!-- Live Metrics HUD -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-[#090d16] border border-[#1e293b]">
+            <div class="text-xs text-[#94a3b8]">Simulated p99 Latency</div>
+            <div id="sb-metric-latency" class="text-2xl font-extrabold text-emerald-400 mt-1">18 ms</div>
+            <div id="sb-status-latency" class="text-[11px] text-emerald-400 mt-0.5">✓ Within &lt;100ms SLA</div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#090d16] border border-[#1e293b]">
+            <div class="text-xs text-[#94a3b8]">Primary Database CPU Load</div>
+            <div id="sb-metric-cpu" class="text-2xl font-extrabold text-sky-400 mt-1">24%</div>
+            <div id="sb-status-cpu" class="text-[11px] text-[#94a3b8] mt-0.5">Healthy headroom (&lt;80% target)</div>
+          </div>
+          <div class="p-4 rounded-xl bg-[#090d16] border border-[#1e293b]">
+            <div class="text-xs text-[#94a3b8]">System Availability</div>
+            <div id="sb-metric-uptime" class="text-2xl font-extrabold text-emerald-400 mt-1">99.99%</div>
+            <div id="sb-status-uptime" class="text-[11px] text-emerald-400 mt-0.5">Zero dropped requests</div>
+          </div>
+        </div>
+
+        <!-- Visual SVG Topology Diagram -->
+        <div class="p-4 rounded-xl bg-slate-950/70 border border-[#1e293b] overflow-x-auto">
+          <svg id="sandbox-svg" viewBox="0 0 760 200" class="w-full min-w-[600px] h-48">
+            <!-- Dynamic wires & packets drawn by JS -->
+          </svg>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         VIEW 4: CONCEPT GUIDEBOOK (REFERENCE LIBRARY)
+         ========================================== -->
+    <section id="view-guidebook" class="hidden space-y-6">
+      <div class="bg-[#111827] border border-[#1e293b] rounded-2xl p-5 md:p-6">
+        <h2 class="text-xl font-bold mb-1">📚 System Design Concept Guidebook</h2>
+        <p class="text-xs md:text-sm text-[#94a3b8] mb-6">
+          Review the core mental models, formulas, and architectural patterns covered across all ArchLingo levels.
+        </p>
+        <div id="guidebook-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by renderGuidebook() -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    /**************************************************************
+      * 1. WEB AUDIO SYNTHESIZER (Duolingo-style chimes & fanfare)
+      **************************************************************/
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      return audioCtx;
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('btn-sound').innerText = audioEnabled ? '🔊' : '🔇';
+    }
+
+    function playSound(type) {
+      if (!audioEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const now = ctx.currentTime;
+        if (type === 'correct') {
+          playTone(ctx, 659.25, now, 0.11, 'sine');
+          playTone(ctx, 987.77, now + 0.11, 0.22, 'triangle');
+        } else if (type === 'wrong') {
+          playTone(ctx, 180, now, 0.14, 'sawtooth');
+          playTone(ctx, 150, now + 0.15, 0.2, 'sawtooth');
+        } else if (type === 'levelup') {
+          playTone(ctx, 523.25, now, 0.1, 'triangle');
+          playTone(ctx, 659.25, now + 0.1, 0.1, 'triangle');
+          playTone(ctx, 783.99, now + 0.2, 0.1, 'triangle');
+          playTone(ctx, 1046.50, now + 0.3, 0.35, 'sine');
+        } else if (type === 'click') {
+          playTone(ctx, 440, now, 0.04, 'sine');
+        }
+      } catch (e) {
+        // Ignore audio errors on restricted environments
+      }
+    }
+
+    function playTone(ctx, freq, startTime, duration, waveType) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = waveType || 'sine';
+      osc.frequency.setValueAtTime(freq, startTime);
+      gain.gain.setValueAtTime(0.12, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+    }
+
+    /**************************************************************
+      * 2. ARCHIE THE CLOUD ARCHITECT — SVG STATE MACHINE
+      **************************************************************/
+    const ARCHIE_QUIPS = [
+      "💡 Tip: Never store user session state in local server memory if you want horizontal autoscaling!",
+      "💡 Tip: A Cache Stampede happens when a popular key expires and thousands of requests hit the DB at once.",
+      "💡 Tip: Consistent Hashing with virtual nodes reduces resharding data movement from ~80% to O(K/N)!",
+      "💡 Tip: Always pair retries with Client Idempotency Keys (UUID) so network blips never double-charge users."
+    ];
+    let quipIndex = 0;
+
+    function mascotQuip() {
+      playSound('click');
+      const speech = document.getElementById('hero-speech-text');
+      if (speech) {
+        speech.innerHTML = `<span class="text-emerald-300 font-semibold">${ARCHIE_QUIPS[quipIndex % ARCHIE_QUIPS.length]}</span>`;
+        quipIndex++;
+      }
+    }
+
+    function getMascotSVG(state = 'idle') {
+      // States: 'idle', 'teaching', 'celebrating', 'alert'
+      let eyeLeft = `<circle cx="38" cy="44" r="5" fill="#0f172a"/><circle cx="39.5" cy="42.5" r="1.8" fill="#ffffff"/>`;
+      let eyeRight = `<circle cx="62" cy="44" r="5" fill="#0f172a"/><circle cx="63.5" cy="42.5" r="1.8" fill="#ffffff"/>`;
+      let mouth = `<path d="M 44 55 Q 50 60 56 55" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      let badgeColor = "#10b981";
+      let aura = "";
+
+      if (state === 'celebrating') {
+        eyeLeft = `<path d="M 33 44 Q 38 38 43 44" stroke="#0f172a" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+        eyeRight = `<path d="M 57 44 Q 62 38 67 44" stroke="#0f172a" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+        mouth = `<path d="M 42 53 Q 50 64 58 53 Z" fill="#0f172a"/>`;
+        badgeColor = "#f59e0b";
+        aura = `<circle cx="50" cy="50" r="46" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4"/>`;
+      } else if (state === 'alert') {
+        eyeLeft = `<circle cx="38" cy="44" r="6" fill="#ef4444"/><circle cx="38" cy="44" r="2.5" fill="#ffffff"/>`;
+        eyeRight = `<circle cx="62" cy="44" r="6" fill="#ef4444"/><circle cx="62" cy="44" r="2.5" fill="#ffffff"/>`;
+        mouth = `<path d="M 43 58 Q 50 52 57 58" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+        badgeColor = "#ef4444";
+      } else if (state === 'teaching') {
+        mouth = `<circle cx="50" cy="56" r="4" fill="#0f172a"/>`;
+        badgeColor = "#06b6d4";
+      }
+
+      return `
+        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
+          ${aura}
+          <!-- Cloud/Robot Owl Body -->
+          <rect x="18" y="22" width="64" height="56" rx="22" fill="#34d399" stroke="#059669" stroke-width="3"/>
+          <!-- Screen Faceplate -->
+          <rect x="26" y="30" width="48" height="36" rx="14" fill="#ecfdf5"/>
+          <!-- Antenna -->
+          <line x1="50" y1="10" x2="50" y2="22" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="50" cy="8" r="5" fill="${badgeColor}"/>
+          <!-- Eyes & Mouth -->
+          ${eyeLeft}
+          ${eyeRight}
+          ${mouth}
+          <!-- Bowtie / Server Rack Badge -->
+          <polygon points="43,73 50,77 43,81" fill="#0f172a"/>
+          <polygon points="57,73 50,77 57,81" fill="#0f172a"/>
+          <circle cx="50" cy="77" r="2.5" fill="${badgeColor}"/>
+        </svg>
+      `;
+    }
+
+    /**************************************************************
+      * 3. CURRICULUM DATA (4 LEVELS: TEACH LAB + 3 QUIZZES EACH)
+      **************************************************************/
+    const CURRICULUM = [
+      {
+        id: 1,
+        title: "Unit 1: Stateless Tiers & Load Balancing",
+        subtitle: "Scale from 1 server to 100k concurrent users without losing user sessions.",
+        domain: "lb",
+        badge: "⚖️ Load Balancing",
+        xpReward: 100,
+        unlocked: true,
+        completed: false,
+        steps: [
+          // STEP 0: INTERACTIVE CONCEPT LESSON (TEACH FIRST!)
+          {
+            type: "teach",
+            title: "Concept Lab: Stateful vs. Stateless Architecture",
+            subtitle: "Simulate sending requests across 3 Round-Robin API servers to see why local session memory causes random user logouts.",
+            conceptSummary: "When users log in, storing their session in Server #1's local RAM means if Server #1 crashes—or if a Round-Robin Load Balancer sends their next request to Server #2—they get logged out immediately! Moving session state to a shared Redis cluster makes every web server stateless and interchangeable.",
+            interactiveMode: "stateless_demo",
+            keyTakeaways: [
+              "Stateless servers can be autoscaled up or down instantly without dropping user sessions.",
+              "L7 Application Load Balancers inspect HTTP headers/cookies and route traffic intelligently across healthy instances.",
+              "Shared Session Store (Redis/Memcached) decouples user state from compute nodes."
+            ]
+          },
+          // STEP 1: ARCHITECTURE BLUEPRINT QUIZ
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Fix the Random Logout Bug",
+            subtitle: "Users complain that refreshing their browser logs them out 66% of the time across our 3 Round-Robin API servers. Click the correct component slot to fix the architecture!",
+            options: [
+              {
+                id: "redis_session",
+                label: "⚡ Shared Redis Session Cluster",
+                isCorrect: true,
+                explanation: "Spot on! Storing session tokens in a shared Redis cluster ensures that any of the 3 API servers can authenticate any request in <1ms without sticky sessions."
+              },
+              {
+                id: "local_disk",
+                label: "💾 Local NVMe Disk on Server #1",
+                isCorrect: false,
+                explanation: "Storing sessions on Server #1's local disk still leaves Server #2 and Server #3 unable to read the session!"
+              },
+              {
+                id: "dns_round_robin",
+                label: "🌐 DNS Round-Robin Records",
+                isCorrect: false,
+                explanation: "DNS Round-Robin distributes traffic at the IP level, which does not solve session state sharing across stateless application servers."
+              }
+            ]
+          },
+          // STEP 2: BOTTLENECK SPOTTER QUIZ
+          {
+            type: "bottleneck",
+            title: "Incident Triage: The Heavy Query Pile-Up",
+            subtitle: "Our L7 Load Balancer is using simple Round-Robin (1, 2, 3...). However, Server #2 gets hit with 5 expensive PDF-export requests in a row and hits 100% CPU while Servers #1 and #3 sit idle. Which routing algorithm fixes this?",
+            options: [
+              {
+                id: "least_conn",
+                label: "Least Connections / Weighted Response Time",
+                isCorrect: true,
+                explanation: "Correct! Least Connections tracks active in-flight requests per server and automatically routes new traffic away from busy nodes like Server #2."
+              },
+              {
+                id: "ip_hash",
+                label: "Client IP Hash (hash(client_ip) % 3)",
+                isCorrect: false,
+                explanation: "IP Hashing pins specific users to specific servers, which can actually worsen hotspots if a few heavy users hash to Server #2."
+              },
+              {
+                id: "random",
+                label: "Pure Random Selection",
+                isCorrect: false,
+                explanation: "Random selection ignores server health and active connection counts, leaving Server #2 overloaded."
+              }
+            ]
+          },
+          // STEP 3: TRADE-OFF QUIZ
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: L4 vs. L7 Load Balancing",
+            subtitle: "You are designing a global gaming server requiring ultra-low latency UDP packet forwarding (sub-millisecond overhead) without inspecting HTTP payloads. Which Load Balancer layer should you choose?",
+            options: [
+              {
+                id: "l4",
+                label: "Layer 4 (Transport Layer — TCP/UDP) Load Balancer",
+                isCorrect: true,
+                explanation: "Bingo! L4 Load Balancers operate at the transport layer (IP + Port) using NAT/DSR without terminating HTTP connections, offering massive throughput and minimal latency for UDP/TCP streams."
+              },
+              {
+                id: "l7",
+                label: "Layer 7 (Application Layer — HTTP/TLS) Load Balancer",
+                isCorrect: false,
+                explanation: "L7 Load Balancers terminate TLS and parse HTTP headers/paths, which is great for microservices routing but adds unnecessary overhead for raw UDP game packets."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Unit 2: Caching Strategies & Cache Stampedes",
+        subtitle: "Drop read latency from 450ms to 2ms and survive viral celebrity traffic spikes.",
+        domain: "cache",
+        badge: "⚡ Caching & CDN",
+        xpReward: 150,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Cache Stampedes & Single-Flight Locking",
+            subtitle: "Trigger a 50,000 QPS viral spike when a cache key expires to see why Single-Flight Mutex Locking saves your database.",
+            conceptSummary: "In Cache-Aside, the app checks Redis first; on a Cache Miss, it queries Postgres and populates Redis. However, if a celebrity post's TTL expires while 50,000 users request it simultaneously, all 50,000 requests miss the cache and hit the database at once—a 'Cache Stampede' (Thundering Herd)! We prevent this with Distributed Mutex Locks (only 1 request recomputes the cache) or Probabilistic Early Expiration.",
+            interactiveMode: "cache_demo",
+            keyTakeaways: [
+              "Cache-Aside is best for read-heavy workloads where stale data is briefly acceptable.",
+              "Write-Through writes synchronously to both Cache and DB, guaranteeing consistency at higher write latency.",
+              "Prevent Cache Stampedes with single-flight mutex locks or background TTL refresh."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Stop the Thundering Herd",
+            subtitle: "At midnight, the homepage cache key expires. 80,000 concurrent requests miss Redis simultaneously and crash Postgres. Select the best architectural defense!",
+            options: [
+              {
+                id: "singleflight",
+                label: "🔒 Single-Flight Mutex Lock + Stale-While-Revalidate",
+                isCorrect: true,
+                explanation: "Nailed it! With Single-Flight locking, only 1 worker thread queries Postgres to refresh the cache while the other 79,999 requests wait a few milliseconds or receive slightly stale cached data."
+              },
+              {
+                id: "remove_ttl",
+                label: "♾️ Remove all TTLs so keys never expire",
+                isCorrect: false,
+                explanation: "Removing TTLs entirely causes Redis to run out of RAM and serve permanently stale data unless every write explicitly invalidates every key."
+              },
+              {
+                id: "double_db",
+                label: "🖥️ Upgrade Postgres from 16 vCPU to 32 vCPU",
+                isCorrect: false,
+                explanation: "Vertical scaling helps slightly, but an 80,000 QPS uncached thundering herd will overwhelm even a 64-core database node."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: Lost Financial Transactions",
+            subtitle: "A banking ledger used Write-Back (Write-Behind) caching for sub-millisecond transfers: writes go to Redis RAM first and flush asynchronously to Postgres every 5 seconds. A Redis node lost power and 5 seconds of transfers vanished! What is the root cause & fix?",
+            options: [
+              {
+                id: "writethrough_acid",
+                label: "Switch to Synchronous ACID Database Writes + Write-Through / Cache Invalidation",
+                isCorrect: true,
+                explanation: "Exactly right! Financial ledgers require durability before acknowledging a transfer. Write-Back caching risks data loss if the cache node crashes before flushing to persistent storage."
+              },
+              {
+                id: "bigger_redis",
+                label: "Increase Redis flush interval from 5 seconds to 60 seconds",
+                isCorrect: false,
+                explanation: "Increasing the flush window to 60 seconds would risk losing a full minute of financial transfers on power loss!"
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Edge CDN vs. Regional Redis",
+            subtitle: "You are serving 4K product videos and static CSS/JS bundles to users in Tokyo, London, and São Paulo. Where should these assets be cached for lowest latency?",
+            options: [
+              {
+                id: "cdn_edge",
+                label: "🌐 Global Edge CDN (Anycast POPs within 10ms of users)",
+                isCorrect: true,
+                explanation: "Correct! A Global Edge CDN serves static bytes directly from Points of Presence (POPs) in the user's city, eliminating trans-oceanic round trips entirely."
+              },
+              {
+                id: "redis_us_east",
+                label: "⚡ Single Redis Cluster in us-east-1 (Virginia)",
+                isCorrect: false,
+                explanation: "Even if Redis responds in 1ms, a user in Tokyo still pays 180ms+ of speed-of-light network latency across the Pacific Ocean."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Unit 3: Database Sharding & Consistent Hashing",
+        subtitle: "Scale beyond single-node storage limits with zero-downtime horizontal partitioning.",
+        domain: "shard",
+        badge: "🧩 Data Sharding",
+        xpReward: 200,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Modulo Hashing vs. Consistent Hash Ring",
+            subtitle: "Simulate adding a 5th database shard to see why Modulo Hashing (`hash % N`) triggers an 80% key migration storm.",
+            conceptSummary: "If you shard 10 million keys using `hash(user_id) % 4` and add a 5th database shard (`% 5`), nearly 80% of all keys change their modulo result—triggering a massive data migration storm! Consistent Hashing places both shards and keys on a 0 to 2^32-1 ring. Adding a node only shifts ~1/N of keys from its immediate neighbor.",
+            interactiveMode: "sharding_demo",
+            keyTakeaways: [
+              "Consistent Hashing reduces key movement from ~80% to O(K/N) when adding or removing nodes.",
+              "Virtual Nodes (vnodes) ensure even data distribution across physical servers of different sizes.",
+              "Avoid Celebrity Hotkeys by appending a bounded random salt (e.g., `celebrity_id#1..10`) to split read load."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Solve the Celebrity Hotkey Outage",
+            subtitle: "Taylor Swift posts a tour update. Even with 16 Consistent Hash shards, all 2 million reads for `user_id=tswift` hash to Shard #7, causing Shard #7 to hit 100% CPU while the other 15 shards sit idle!",
+            options: [
+              {
+                id: "key_salting",
+                label: "🧂 Key Salting / Read-Spreading (`tswift#0` .. `tswift#9`) across Shards",
+                isCorrect: true,
+                explanation: "Brilliant! Appending a deterministic salt (0..9) splits requests for hot celebrity keys across 10 different shards or read caches, eliminating the single-node hotspot."
+              },
+              {
+                id: "add_more_shards",
+                label: "➕ Add 16 more empty shards to the hash ring",
+                isCorrect: false,
+                explanation: "Adding more shards to the ring does not help when every single request is querying the exact same hash key (`user_id=tswift`)."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: The Skewed Country Shard Key",
+            subtitle: "An e-commerce database is partitioned by `country_code`. During US Thanksgiving, the `US` shard runs out of disk IOPS and crashes, while 190 other country shards sit at 2% utilization. How do you redesign the shard key?",
+            options: [
+              {
+                id: "compound_hash",
+                label: "Shard by high-cardinality `hash(user_id)` or `(user_id, order_id)`",
+                isCorrect: true,
+                explanation: "Spot on! High-cardinality keys like `hash(user_id)` spread US shoppers uniformly across all available database shards, preventing geographic hotspots."
+              },
+              {
+                id: "continent_shard",
+                label: "Shard by `continent_code` instead of `country_code`",
+                isCorrect: false,
+                explanation: "Sharding by continent makes the hotspot even worse by grouping the US, Canada, and Mexico into a single North America shard!"
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Cross-Shard Joins vs. Denormalization",
+            subtitle: "After sharding Orders by `user_id` and Products by `product_id`, your analytics dashboard runs a SQL JOIN across all 32 shards (`Scatter-Gather`), taking 4.2 seconds (tail latency = slowest shard). How do you make user order history load in <15ms?",
+            options: [
+              {
+                id: "denormalize",
+                label: "Denormalize essential product title/price into the User Order document",
+                isCorrect: true,
+                explanation: "Correct! In distributed sharded databases, avoiding scatter-gather joins by denormalizing read-time fields allows single-shard point lookups in <10ms."
+              },
+              {
+                id: "increase_timeout",
+                label: "Increase HTTP client timeout from 5 seconds to 30 seconds",
+                isCorrect: false,
+                explanation: "Increasing timeouts masks slow queries rather than fixing the underlying O(N) scatter-gather fanout bottleneck."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Unit 4: Async Kafka, Rate Limiting & Circuit Breakers",
+        subtitle: "Prevent cascading failures when downstream microservices slow down or crash.",
+        domain: "resilience",
+        badge: "🛡️ Resilience",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Circuit Breakers & Cascading Failures",
+            subtitle: "Simulate a slow downstream Payment API (10s timeout) with and without a Circuit Breaker.",
+            conceptSummary: "If the Payment Service slows down to 10 seconds per call and your API Gateway has 500 worker threads, all 500 threads block on Payment calls within seconds—taking down the entire website (Cascading Failure)! A Circuit Breaker trips to `OPEN` when error/latency thresholds spike, failing fast (<1ms) or falling back to an Async Kafka Queue.",
+            interactiveMode: "resilience_demo",
+            keyTakeaways: [
+              "Circuit Breakers have 3 states: CLOSED (Normal), OPEN (Fail-Fast / Fallback), and HALF-OPEN (Probe recovery).",
+              "Token Bucket Rate Limiting protects APIs from noisy neighbors and bot floods.",
+              "Idempotency Keys (`UUID`) ensure retrying a failed payment never charges a customer twice."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Prevent Thread Pool Exhaustion",
+            subtitle: "A 3rd-party Shipping Label API is experiencing a 30-second outage. Our Checkout API servers are hanging and returning 504 Gateway Timeouts to all shoppers. Add the right resilience pattern!",
+            options: [
+              {
+                id: "circuit_breaker_kafka",
+                label: "🛡️ Circuit Breaker + Async Kafka Queue (Process shipping labels in background)",
+                isCorrect: true,
+                explanation: "Masterful architecture! Tripping the Circuit Breaker decouples Checkout from the slow 3rd-party API, enqueueing label generation asynchronously via Kafka so shoppers complete checkout in 40ms."
+              },
+              {
+                id: "infinite_retries",
+                label: "🔄 Immediate Infinite Retries inside the HTTP request loop",
+                isCorrect: false,
+                explanation: "Retrying immediately against an overloaded downstream service creates a 'Retry Storm', amplifying load and guaranteeing a total outage."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: The Double-Charge Bug",
+            subtitle: "A mobile user taps 'Pay $99'. The network drops after the Payment Service charges their card, so the app retries the POST request—charging the user $198! What header/mechanism prevents double charges on retries?",
+            options: [
+              {
+                id: "idempotency_key",
+                label: "🔑 Client-Generated Idempotency-Key (`Idempotency-Key: uuid-v4` stored in DB/Redis)",
+                isCorrect: true,
+                explanation: "100% Correct! When the server sees a duplicate `Idempotency-Key`, it returns the cached success receipt from the first transaction instead of executing a second charge."
+              },
+              {
+                id: "disable_retries",
+                label: "🚫 Disable all network retries on mobile clients",
+                isCorrect: false,
+                explanation: "Disabling retries leaves users stranded on flaky mobile networks; safe retries with Idempotency Keys is the industry standard (Stripe, Adyen, Google Pay)."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Token Bucket vs. Fixed Window Rate Limiting",
+            subtitle: "Your API allows 100 requests/minute. With a Fixed Window counter (`12:00:00` to `12:01:00`), a user sends 100 requests at `12:00:59` and another 100 requests at `12:01:01`—200 requests in 2 seconds! Which algorithm solves boundary burst spikes smoothly?",
+            options: [
+              {
+                id: "sliding_window_token",
+                label: "⏱️ Sliding Window Log / Token Bucket with controlled burst capacity",
+                isCorrect: true,
+                explanation: "Spot on! Sliding Window and Token Bucket algorithms enforce smooth rate limits across any arbitrary time boundary, preventing double-quota boundary bursts."
+              },
+              {
+                id: "ip_ban",
+                label: "🔨 Permanently ban any IP that sends more than 50 requests",
+                isCorrect: false,
+                explanation: "Banning IPs harms legitimate users behind corporate NATs or mobile carrier gateways."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "Unit 5: Replication, Quorum (R+W>N) & Raft/Paxos Consensus",
+        subtitle: "Guarantee strong consistency, survive node failures, and prevent split-brain data corruption.",
+        domain: "consensus",
+        badge: "🗳️ Consensus & Quorum",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Quorum Math (R + W > N) & Split-Brain Prevention",
+            subtitle: "Compare sloppy async replication against strict quorum intersection and Raft leader election.",
+            conceptSummary: "In a distributed database with N=3 replicas, asynchronous replication (W=1, R=1) risks stale reads and data loss if the leader crashes before shipping its write log. Strict Quorum requires R + W > N (e.g., N=3, W=2, R=2), guaranteeing that the read set and write set overlap by at least one up-to-date node. For leader elections and state machine replication, Raft uses randomized election timeouts and monotonic term numbers so split-brain dual leaders can never commit conflicting logs.",
+            interactiveMode: "consensus_demo",
+            keyTakeaways: [
+              "Strict Quorum (`R + W > N`) ensures at least 1 replica in every read quorum holds the latest committed write.",
+              "Raft / Paxos require a majority quorum (`⌊N/2⌋ + 1`) to elect a leader or commit log entries, preventing split-brain.",
+              "Tunable consistency lets engineers trade latency for freshness (e.g., W=3, R=1 for fast reads vs. W=2, R=2 balanced)."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Prevent Stale Account Balances",
+            subtitle: "Your core ledger runs across N=5 storage replicas. A user deposits $1,000, receives a 200 OK, and immediately refreshes their dashboard—seeing $0! Which Read/Write Quorum configuration guarantees zero stale reads while tolerating 2 node crashes?",
+            options: [
+              {
+                id: "quorum_w3_r3",
+                label: "🗳️ Configure W=3, R=3 (Strict Majority Quorum: 3 + 3 > 5)",
+                isCorrect: true,
+                explanation: "Correct! With N=5, W=3 and R=3 satisfy R + W > N (3 + 3 = 6 > 5). Every read quorum of 3 nodes is guaranteed to overlap with at least one node that accepted the latest write, while tolerating up to 2 unavailable replicas."
+              },
+              {
+                id: "async_w1_r1",
+                label: "⚡ Configure W=1, R=1 with Asynchronous Background Gossip",
+                isCorrect: false,
+                explanation: "With W=1 and R=1, 4 out of 5 replicas won't have the write yet when the user refreshes, causing frequent stale reads."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: The Split-Brain Dual Leader Outage",
+            subtitle: "A network partition splits your 4-node cluster into two halves (2 nodes in Zone A, 2 nodes in Zone B). Both halves elect a leader and accept conflicting writes, corrupting the database! Why did this happen and how do you fix it?",
+            options: [
+              {
+                id: "odd_quorum_5_nodes",
+                label: "⚖️ Use an odd number of voting nodes (N=3 or N=5) and enforce strict majority quorum (> N/2)",
+                isCorrect: true,
+                explanation: "Spot on! An even 4-node cluster can split 2-vs-2 where neither side has a strict majority (3). With N=5, a network partition creates at most one majority partition (e.g. 3-vs-2), ensuring only one side can elect a Raft leader and accept writes."
+              },
+              {
+                id: "disable_heartbeats",
+                label: "🔕 Increase heartbeat intervals from 150ms to 10 minutes",
+                isCorrect: false,
+                explanation: "Delaying heartbeats leaves the cluster unable to detect genuine node crashes for 10 minutes without fixing split-brain."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Read-Heavy vs. Write-Heavy Quorum Tuning",
+            subtitle: "Your user profile service has a 99:1 Read-to-Write ratio across N=3 replicas. You must guarantee strong consistency (`R + W > 3`), but you want sub-millisecond local reads. Which quorum tuning optimizes for 99% reads?",
+            options: [
+              {
+                id: "w3_r1_tuning",
+                label: "🚀 Write to All Replicas (W=3) and Read from Any Single Replica (R=1)",
+                isCorrect: true,
+                explanation: "Brilliant! Since W=3 + R=1 = 4 > 3, every replica has every committed write. Reads only need to query 1 local node (R=1) for blazing-fast latency, trading slower rare writes for ultra-fast frequent reads."
+              },
+              {
+                id: "w1_r3_tuning",
+                label: "🐢 Write to 1 Replica (W=1) and Read from All Replicas (R=3)",
+                isCorrect: false,
+                explanation: "Reading from all 3 replicas on every request makes 99% of your traffic suffer the tail latency of the slowest replica."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 6,
+        title: "Unit 6: Global Multi-Region Active-Active, Anycast & Spanner TrueTime",
+        subtitle: "Route global users with <20ms latency and achieve external consistency across continents.",
+        domain: "global",
+        badge: "🌍 Global Active-Active",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: TrueTime Bounded Clock Uncertainty & Anycast Routing",
+            subtitle: "See why standard NTP clocks corrupt multi-region transactions and how GPS + Atomic Clocks solve it.",
+            conceptSummary: "In a Global Active-Active architecture, BGP Anycast routes users from Tokyo, Frankfurt, and New York to their nearest edge PoP using a single IP. However, standard server clocks drift by 100ms+ (NTP skew), making Last-Write-Wins (LWW) unsafe across regions. Google Cloud Spanner solves this with TrueTime: hardware GPS receivers + Rubidium atomic clocks bound time uncertainty to ε (typically < 3ms). By waiting 2*ε before committing, Spanner guarantees external consistency globally without cross-region lock contention!",
+            interactiveMode: "truetime_demo",
+            keyTakeaways: [
+              "BGP Anycast advertises one IP from 100+ global edge locations, routing packets over the shortest autonomous system path.",
+              "Standard NTP wall clocks drift up to 250ms, causing causal anomalies where later transactions get older timestamps.",
+              "Spanner TrueTime API returns a time interval `[earliest, latest]` (`2*ε`) and enforces Commit Wait (`2*ε`) for strict serializability."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Global Multi-Region Financial Ledger",
+            subtitle: "You are designing a global banking transfer engine across US-East, EU-Central, and AP-East. Regulatory compliance requires strict External Consistency (linearizability across all regions) without a single-region primary bottleneck. Which architecture do you deploy?",
+            options: [
+              {
+                id: "spanner_truetime",
+                label: "🕰️ Multi-Region Paxos Groups + Hardware TrueTime (GPS & Atomic Clocks Commit Wait)",
+                isCorrect: true,
+                explanation: "100% Correct! Combining Paxos consensus groups per shard with TrueTime hardware clock bounds guarantees globally consistent snapshot reads without locking and externally consistent read-write transactions."
+              },
+              {
+                id: "lww_ntp",
+                label: "⏱️ Multi-Master Async Replication with NTP Wall-Clock Last-Write-Wins (LWW)",
+                isCorrect: false,
+                explanation: "NTP clock skew between continents easily drops deposits or reorders transfers, violating banking invariants."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: Cross-Continent Latency Spike on Reads",
+            subtitle: "Users in Sydney (AP-Southeast) complain that loading their read-only account dashboard takes 480ms because every query performs a cross-Pacific round-trip to the US-East Leader replica. How do you serve strongly consistent reads locally in Sydney in <12ms?",
+            options: [
+              {
+                id: "bounded_staleness_or_truetime_snapshot",
+                label: "📸 Serve Lock-Free Read-Only Transactions at a Safe TrueTime Timestamp from Local Read-Only Replicas",
+                isCorrect: true,
+                explanation: "Masterful! Because TrueTime bounds clock uncertainty, a local Sydney replica knows when its Paxos log has caught up past timestamp T and can serve lock-free consistent reads locally in <12ms."
+              },
+              {
+                id: "disable_tls",
+                label: "🔓 Disable TLS encryption across the Pacific submarine cable",
+                isCorrect: false,
+                explanation: "The speed of light in fiber across 15,000 km is the physical bottleneck (~150ms per round trip), not TLS encryption overhead."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Active-Active vs. Active-Passive Disaster Recovery",
+            subtitle: "Your executive team wants a Recovery Time Objective (RTO) of 0 seconds and Recovery Point Objective (RPO) of 0 bytes lost if an entire cloud region goes dark during a hurricane. Which architecture meets RTO=0 / RPO=0?",
+            options: [
+              {
+                id: "multi_region_active_active_quorum",
+                label: "🌐 Multi-Region Active-Active with Synchronous Cross-Region Consensus Quorum",
+                isCorrect: true,
+                explanation: "Correct! Active-Active with synchronous multi-region consensus ensures zero data loss (RPO=0) and immediate Anycast failover (RTO≈0) when a region fails."
+              },
+              {
+                id: "cold_standby_s3_backups",
+                label: "🧊 Daily S3 Snapshot Backups with Cold Standby VM Provisioning on Outage",
+                isCorrect: false,
+                explanation: "Restoring snapshots and provisioning cold VMs takes hours (RTO > 2 hours) and loses up to 24 hours of data (RPO = 24h)."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 7,
+        title: "Unit 7: Storage Engines Under the Hood (B-Trees vs. LSM-Trees & Bloom Filters)",
+        subtitle: "Master disk page layouts, write amplification, SSTable compaction, and probabilistic filters.",
+        domain: "storage",
+        badge: "💾 Storage Engines",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: B-Trees vs. Log-Structured Merge (LSM) Trees",
+            subtitle: "Compare random disk page overwrites (PostgreSQL/InnoDB) against sequential append-only SSTables (RocksDB/Cassandra).",
+            conceptSummary: "B-Tree storage engines store data in fixed 16KB disk pages sorted by primary key. They excel at fast predictable reads (`O(log N)` page lookups), but random writes require reading, modifying, and writing entire 16KB pages—causing high Write Amplification. LSM-Tree engines (RocksDB, Cassandra, Bigtable) buffer writes in an in-memory sorted `MemTable` + append-only `Write-Ahead Log (WAL)`, flushing sequentially to immutable `SSTables` on disk. To prevent slow reads across many SSTable files, an in-memory `Bloom Filter` instantly tells you if a key is definitely NOT present!",
+            interactiveMode: "storage_demo",
+            keyTakeaways: [
+              "B-Trees optimize for read throughput and low read latency via in-place 16KB page trees, but suffer random write amplification.",
+              "LSM-Trees turn random writes into sequential disk appends (MemTable + WAL -> SSTables), delivering 10x higher write throughput.",
+              "Bloom Filters use bit arrays and k hash functions to skip unnecessary disk SSTable reads with zero false negatives."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: High-Velocity IoT Telemetry Ingestion",
+            subtitle: "Your fleet of 2 million autonomous vehicles streams 600,000 GPS/sensor writes per second. Our current B-Tree database is thrashing disk I/O at 100% utilization due to random page splits. Which storage engine architecture should you adopt?",
+            options: [
+              {
+                id: "lsm_tree_rocksdb",
+                label: "🌲 LSM-Tree Engine (In-Memory MemTable + Append-Only WAL + Leveled SSTable Compaction)",
+                isCorrect: true,
+                explanation: "Spot on! LSM-Tree storage engines absorb massive write bursts into RAM (MemTable) and sequential WAL appends, avoiding random disk seeks entirely."
+              },
+              {
+                id: "unindexed_csv",
+                label: "📄 Unindexed Raw CSV Text Files on Network Attached Storage",
+                isCorrect: false,
+                explanation: "While appending to CSV is fast, querying any vehicle's telemetry requires O(N) full table scans across terabytes of text."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: LSM-Tree Read Amplification & Non-Existent Key Lookups",
+            subtitle: "Attackers are probing your LSM-Tree database with millions of random non-existent `user_id` lookups. Each query checks Level 0, Level 1, Level 2, and Level 3 SSTable files on SSD—causing a 95% read latency spike! What data structure eliminates disk reads for missing keys?",
+            options: [
+              {
+                id: "bloom_filter_per_sstable",
+                label: "🌸 Attach an In-Memory Bloom Filter bit-array to every SSTable file",
+                isCorrect: true,
+                explanation: "Brilliant! Before touching SSD storage for an SSTable, the engine hashes the key against the in-memory Bloom Filter. If any bit is 0, the key is guaranteed not in that file—eliminating 99% of wasted disk I/O!"
+              },
+              {
+                id: "disable_compaction",
+                label: "🛑 Disable background SSTable compaction permanently",
+                isCorrect: false,
+                explanation: "Disabling compaction causes thousands of SSTable files to accumulate on disk, making read amplification exponentially worse."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Size-Tiered vs. Leveled Compaction in LSM-Trees",
+            subtitle: "Your LSM database suffers periodic p99 latency hiccups and uses 50% extra disk space during compaction. You need predictable read latency and low disk space overhead (`<15%`). Which compaction strategy do you choose?",
+            options: [
+              {
+                id: "leveled_compaction",
+                label: "📏 Leveled Compaction (RocksDB style: non-overlapping key ranges per level L1..Ln)",
+                isCorrect: true,
+                explanation: "Correct! Leveled compaction partitions each level into small, non-overlapping SSTables. A point lookup checks at most 1 SSTable per level, minimizing read amplification and space overhead."
+              },
+              {
+                id: "size_tiered_compaction",
+                label: "📦 Size-Tiered Compaction (Merging giant SSTables only when 4 equal-sized files accumulate)",
+                isCorrect: false,
+                explanation: "Size-Tiered compaction optimizes for pure write throughput but requires up to 50% free disk space to merge giant files and has higher read latency."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 8,
+        title: "Unit 8: Microservices, gRPC vs. REST, Service Mesh & API Gateways",
+        subtitle: "Optimize internal East-West RPC traffic with HTTP/2 binary multiplexing and Envoy sidecars.",
+        domain: "microservices",
+        badge: "🕸️ Service Mesh & RPC",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: North-South API Gateway vs. East-West gRPC Service Mesh",
+            subtitle: "Contrast external JSON/REST over HTTP/1.1 with internal binary Protocol Buffers over HTTP/2 + Envoy Sidecars.",
+            conceptSummary: "In a microservice architecture, North-South traffic (mobile/web clients to edge) passes through an API Gateway that handles Auth, WAF, and Rate Limiting. Inside the datacenter, East-West service-to-service calls can fan out to 30+ microservices per user request. Using verbose JSON over HTTP/1.1 causes CPU-heavy text parsing and Head-of-Line (HOL) blocking. Switching internal East-West RPCs to gRPC (Protocol Buffers + HTTP/2 stream multiplexing) cuts serialization CPU by 80% and allows concurrent bidirectional streams over a single TCP connection!",
+            interactiveMode: "mesh_demo",
+            keyTakeaways: [
+              "API Gateways manage North-South edge concerns: OAuth/JWT verification, SSL termination, and DDoS protection.",
+              "gRPC uses binary Protocol Buffers and HTTP/2 multiplexing for 5x-10x faster East-West microservice communication.",
+              "Service Mesh sidecar proxies (Envoy/Istio) offload mTLS encryption, retries, and distributed tracing from application code."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: High-Throughput Internal Microservice Fanout",
+            subtitle: "Your Recommendation Engine calls 25 internal feature-store microservices for every homepage load. Currently, JSON serialization and opening 25 separate HTTP/1.1 TCP connections consumes 70% of CPU. What architecture upgrade solves this?",
+            options: [
+              {
+                id: "grpc_http2_protobuf",
+                label: "⚡ Migrate East-West internal RPCs to gRPC (Protocol Buffers + HTTP/2 Persistent Multiplexing)",
+                isCorrect: true,
+                explanation: "Spot on! HTTP/2 multiplexing sends all concurrent requests over a single persistent TCP connection per peer, while binary Protobuf serialization eliminates JSON parsing overhead."
+              },
+              {
+                id: "xml_soap_over_http1",
+                label: "📜 Convert JSON payloads to XML SOAP envelopes over HTTP/1.1",
+                isCorrect: false,
+                explanation: "XML SOAP envelopes are even larger and more CPU-intensive to parse than JSON."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: Zero-Trust mTLS & Polyglot Observability Overhead",
+            subtitle: "Your company runs 120 microservices written in Go, Python, Java, and Rust. Security requires mutual TLS (mTLS) certificate rotation every 24 hours and uniform retry timeouts across all 4 languages without rewriting application code. What pattern do you deploy?",
+            options: [
+              {
+                id: "service_mesh_sidecar",
+                label: "🕸️ Deploy a Service Mesh (Envoy Sidecar Proxy per Pod + Control Plane mTLS rotation)",
+                isCorrect: true,
+                explanation: "Masterful! Injecting an Envoy sidecar proxy alongside each container intercepts all network traffic transparently—enforcing mTLS, circuit breaking, and telemetry uniformly across all languages."
+              },
+              {
+                id: "hardcode_tls_in_4_languages",
+                label: "👨‍💻 Write and maintain custom TLS certificate reload libraries in Go, Python, Java, and Rust",
+                isCorrect: false,
+                explanation: "Maintaining duplicated security and networking logic across 4 languages leads to inconsistent bugs and delayed security patches."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: BFF (Backend-For-Frontend) vs. Monolithic API Gateway",
+            subtitle: "Your iOS mobile app needs compact 2KB payloads to save battery on cellular networks, while your Desktop Web Dashboard needs rich 80KB aggregated analytics tables. A single REST endpoint either over-fetches on mobile or requires 15 round-trips on desktop. How do you design the edge tier?",
+            options: [
+              {
+                id: "bff_or_graphql",
+                label: "🎯 Backend-For-Frontend (BFF) / GraphQL Aggregation Layer tailored per client experience",
+                isCorrect: true,
+                explanation: "Correct! Dedicated BFF services (or a federated GraphQL gateway) allow mobile and desktop clients to fetch tailored payload shapes in a single round trip."
+              },
+              {
+                id: "expose_internal_dbs_to_mobile",
+                label: "🔓 Expose internal microservice database ports directly to mobile clients",
+                isCorrect: false,
+                explanation: "Exposing internal database ports to public mobile clients is a catastrophic security vulnerability."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 9,
+        title: "Unit 9: Search Engines, Inverted Indexes & Vector Databases (HNSW/RAG)",
+        subtitle: "Combine lexical BM25 inverted indexes with dense semantic HNSW vector graphs for AI & search.",
+        domain: "search",
+        badge: "🔍 Search & Vectors",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Inverted Indexes (BM25) vs. HNSW Vector Graphs",
+            subtitle: "Discover how search engines combine exact keyword matching with semantic embedding similarity.",
+            conceptSummary: "Traditional full-text search engines (Elasticsearch/Lucene) build an `Inverted Index` mapping every tokenized word (`term`) to a sorted posting list of `Document IDs` and TF-IDF/BM25 relevance scores—delivering instant exact keyword lookups. However, lexical search fails on synonyms ('laptop won't turn on' vs 'MacBook black screen'). AI Retrieval-Augmented Generation (RAG) encodes text into 1536-dimensional embeddings and indexes them in a `Hierarchical Navigable Small World (HNSW)` multi-layer proximity graph—finding semantically similar vectors in `O(log N)` hops!",
+            interactiveMode: "vector_demo",
+            keyTakeaways: [
+              "Inverted Indexes map `Term -> [DocIDs, Term Frequency, Positions]` for sub-10ms exact keyword and phrase matching.",
+              "Brute-force k-NN vector search is `O(N * D)` (too slow at scale); HNSW graphs achieve `O(log N)` approximate nearest neighbor search.",
+              "Hybrid Search (`BM25 + Dense Vector Embeddings + Reciprocal Rank Fusion`) delivers the highest accuracy for enterprise AI search."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Enterprise AI RAG Search Engine",
+            subtitle: "You are building a technical support AI assistant over 50 million engineering documents. Users search for exact error codes (`ERR_SSL_VERSION_OR_CIPHER_MISMATCH`) AND conceptual questions ('how to renew expired TLS cert'). Which search architecture gives the best recall and precision?",
+            options: [
+              {
+                id: "hybrid_bm25_hnsw_rrf",
+                label: "🧬 Hybrid Search: BM25 Inverted Index (Exact Codes) + HNSW Vector Index (Semantics) + Reciprocal Rank Fusion",
+                isCorrect: true,
+                explanation: "100% Correct! BM25 excels at exact identifier/error-code matches while HNSW dense vectors capture semantic intent; combining both via Reciprocal Rank Fusion (RRF) outperforms either alone."
+              },
+              {
+                id: "sql_like_wildcard",
+                label: "🐢 SQL `WHERE content LIKE '%query%'` full table scan on PostgreSQL",
+                isCorrect: false,
+                explanation: "A leading wildcard `LIKE '%...'` bypasses B-Tree indexes and scans 50 million full-text rows sequentially on every query."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: Vector Memory Explosion (50M Embeddings in RAM)",
+            subtitle: "Your HNSW vector index stores 100 million 1536-dimensional `float32` vectors in memory. Each vector takes `1536 * 4 bytes = 6 KB`, requiring over `600 GB of RAM` per replica! How do you reduce RAM usage by 75%+ while keeping >95% search recall?",
+            options: [
+              {
+                id: "scalar_or_product_quantization",
+                label: "🗜️ Apply Scalar Quantization (`SQ8` int8 / Binary Quantization) or Product Quantization (PQ)",
+                isCorrect: true,
+                explanation: "Spot on! Compressing 32-bit floats (`FP32`) down to 8-bit integers (`SQ8`) or binary codes reduces memory footprint by 4x to 32x with minimal loss in retrieval recall."
+              },
+              {
+                id: "delete_90_percent_of_docs",
+                label: "🗑️ Randomly delete 90% of customer documents from the index",
+                isCorrect: false,
+                explanation: "Deleting customer data breaks product functionality; vector quantization is the standard engineering solution."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: HNSW Index Build Time vs. Query Recall (`efConstruction` & `M`)",
+            subtitle: "When tuning an HNSW index, increasing `M` (max bidirectional links per node) from 16 to 64 improves semantic recall from 92% to 98.5%, but doubles RAM usage and slows index build time by 3x. How do you balance real-time document ingestion with high query accuracy?",
+            options: [
+              {
+                id: "tiered_index_delta_buffer",
+                label: "⚡ Stream real-time writes into a small flat/in-memory delta buffer and merge into tuned HNSW segments in background",
+                isCorrect: true,
+                explanation: "Correct! Just like LSM-Trees, modern vector databases buffer fresh inserts in a fast delta segment and asynchronously build optimized HNSW graph segments in the background."
+              },
+              {
+                id: "rebuild_entire_hnsw_on_every_insert",
+                label: "🔄 Rebuild the entire 100M-vector HNSW graph from scratch on every single document edit",
+                isCorrect: false,
+                explanation: "Rebuilding an HNSW graph takes hours; doing so on every write would freeze ingestion completely."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 10,
+        title: "Unit 10: Observability, Distributed Tracing & Tail Latency Amplification",
+        subtitle: "Conquer the math of microservice fanout tail latency, OpenTelemetry traces, and hedged requests.",
+        domain: "observability",
+        badge: "📈 Observability & Tracing",
+        xpReward: 250,
+        unlocked: false,
+        completed: false,
+        steps: [
+          {
+            type: "teach",
+            title: "Concept Lab: Tail Latency Amplification & Hedged Requests",
+            subtitle: "Why a 99% fast microservice causes 40% slow user pages when fanned out 50 times—and how to fix it.",
+            conceptSummary: "In a distributed system, if a single leaf microservice has a p99 latency of 1 second (meaning 1% of requests take >1s), what happens when an API Gateway fans out to 50 leaf services in parallel and waits for all 50 to respond? The probability that ALL 50 calls are fast is `(0.99)^50 = 60.5%`—meaning **39.5% of your users experience >1 second latency**! To tame tail latency amplification, Principal Architects use **W3C Distributed Tracing (`traceparent`)** to pinpoint slow spans and issue **Hedged Requests** (sending a backup duplicate read to a second replica if the first doesn't respond within the p95 threshold of 15ms).",
+            interactiveMode: "tracing_demo",
+            keyTakeaways: [
+              "Tail Latency Amplification Math: Parallel fanout across N services makes overall latency equal to `max(latency_1 .. latency_N)`.",
+              "OpenTelemetry propagates a W3C `traceparent` header (`trace-id`, `span-id`) across every microservice and queue hop.",
+              "Hedged Requests send a secondary read after p95 latency (e.g., 15ms) and cancel the slower replica, cutting p99 tail latency by 80%."
+            ]
+          },
+          {
+            type: "blueprint",
+            title: "Blueprint Challenge: Taming p99 Fanout Latency in Search",
+            subtitle: "Your search aggregator queries 40 shard servers in parallel. Even though every shard has a 99% success rate under 10ms, garbage collection (GC) pauses cause 1% of requests on any shard to take 800ms—making 33% of user searches take 800ms! How do you bring p99 search latency under 25ms?",
+            options: [
+              {
+                id: "hedged_requests_p95",
+                label: "🏇 Implement Hedged Requests: If a shard doesn't reply within p95 (15ms), fire a backup request to its replica",
+                isCorrect: true,
+                explanation: "Masterful! As popularized by Google's 'The Tail at Scale' paper, sending a hedged read to a second replica when a request exceeds the 95th percentile latency only increases total load by ~5% while slashing p99 latency from 800ms to 22ms!"
+              },
+              {
+                id: "ignore_slow_shards_empty_results",
+                label: "🙈 Drop any shard that takes >5ms and return incomplete blank search pages",
+                isCorrect: false,
+                explanation: "Dropping shards arbitrarily degrades search quality when a simple hedged read to a healthy replica solves the GC pause."
+              }
+            ]
+          },
+          {
+            type: "bottleneck",
+            title: "Incident Triage: The Invisible Microservice Bottleneck",
+            subtitle: "Checkout latency spiked from 120ms to 3.4 seconds during peak traffic. You have 65 microservices and millions of log lines per second, but engineers have spent 2 hours grepping text logs without finding which service is stalling. What observability standard solves this immediately?",
+            options: [
+              {
+                id: "opentelemetry_distributed_tracing",
+                label: "🔍 OpenTelemetry Distributed Tracing (`traceparent` header propagation + Waterfall Span Flamegraph)",
+                isCorrect: true,
+                explanation: "100% Correct! Propagating a unique `trace-id` across every HTTP/gRPC/Kafka boundary lets engineers open a single Waterfall Flamegraph and immediately see which downstream span took 3.2 seconds."
+              },
+              {
+                id: "log_every_variable_to_stdout",
+                label: "📜 Enable DEBUG logging of all memory variables to local disk on all 65 services",
+                isCorrect: false,
+                explanation: "Flooding disk I/O with unindexed debug logs slows down production servers further without linking causal request paths."
+              }
+            ]
+          },
+          {
+            type: "tradeoff",
+            title: "Architecture Trade-Off: Head-Based vs. Tail-Based Trace Sampling",
+            subtitle: "Your platform processes 200,000 QPS. Storing 100% of distributed traces costs $400,000/month. If you use random 1% Head-Based Sampling at the API Gateway, you miss 99% of rare 500 Internal Server Errors! How do you capture 100% of error/high-latency traces while sampling only 1% of healthy traffic?",
+            options: [
+              {
+                id: "tail_based_sampling",
+                label: "🎯 Tail-Based Sampling in the OpenTelemetry Collector (Buffer spans in memory, keep 100% of traces with errors or latency > 1s)",
+                isCorrect: true,
+                explanation: "Brilliant! Tail-based sampling inspects the completed trace before deciding whether to persist it—guaranteeing you keep every anomaly and error trace while discarding 99% of routine 200 OK traces."
+              },
+              {
+                id: "turn_off_tracing_in_prod",
+                label: "🔌 Disable all distributed tracing in production and only run it on laptops",
+                isCorrect: false,
+                explanation: "Production scale concurrency and tail-latency bugs cannot be reproduced on a developer laptop."
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    /**************************************************************
+      * 4. GAME STATE & PROGRESS TRACKER
+      **************************************************************/
+    let gameState = {
+      streak: 3,
+      xp: 120,
+      hearts: 5,
+      mastery: { lb: 25, cache: 0, shard: 0, resilience: 0, consensus: 0, global: 0, storage: 0, microservices: 0, search: 0, observability: 0 },
+      activeUnitId: null,
+      activeStepIndex: 0,
+      stepAnswered: false
+    };
+
+    function saveProgress() {
+      try {
+        localStorage.setItem('archlingo_state_v2', JSON.stringify({
+          streak: gameState.streak,
+          xp: gameState.xp,
+          hearts: gameState.hearts,
+          mastery: gameState.mastery,
+          unlocked: CURRICULUM.map(u => u.unlocked),
+          completed: CURRICULUM.map(u => u.completed)
+        }));
+      } catch (e) {}
+    }
+
+    function loadProgress() {
+      try {
+        const saved = localStorage.getItem('archlingo_state_v2');
+        if (saved) {
+          const data = JSON.parse(saved);
+          gameState.streak = data.streak ?? 3;
+          gameState.xp = data.xp ?? 120;
+          gameState.hearts = data.hearts ?? 5;
+          if (data.mastery) gameState.mastery = { ...gameState.mastery, ...data.mastery };
+          if (Array.isArray(data.unlocked)) {
+            data.unlocked.forEach((val, i) => { if (CURRICULUM[i]) CURRICULUM[i].unlocked = val; });
+          }
+          if (Array.isArray(data.completed)) {
+            data.completed.forEach((val, i) => { if (CURRICULUM[i]) CURRICULUM[i].completed = val; });
+          }
+        }
+      } catch (e) {}
+    }
+
+    function unlockAllLevels() {
+      playSound('levelup');
+      CURRICULUM.forEach(u => { u.unlocked = true; });
+      saveProgress();
+      renderSkillTree();
+      const status = document.getElementById('birdbrain-status');
+      if (status) status.innerText = "🔓 All 10 Architecture Levels Unlocked!";
+    }
+
+    function updateHUD() {
+      document.getElementById('hud-streak').innerText = gameState.streak;
+      document.getElementById('hud-xp').innerText = gameState.xp;
+      document.getElementById('hud-hearts').innerText = gameState.hearts;
+      document.getElementById('lesson-hearts').innerText = gameState.hearts;
+
+      document.getElementById('mastery-lb').innerText = (gameState.mastery.lb ?? 0) + '%';
+      document.getElementById('mastery-cache').innerText = (gameState.mastery.cache ?? 0) + '%';
+      document.getElementById('mastery-shard').innerText = (gameState.mastery.shard ?? 0) + '%';
+      document.getElementById('mastery-resilience').innerText = (gameState.mastery.resilience ?? 0) + '%';
+      saveProgress();
+    }
+
+    function switchMainTab(tabName) {
+      playSound('click');
+      ['map', 'sandbox', 'guidebook'].forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tabName) {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500 text-slate-950 shadow-sm";
+        } else {
+          btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all text-[#94a3b8] hover:text-white";
+        }
+      });
+
+      document.getElementById('view-map').classList.toggle('hidden', tabName !== 'map');
+      document.getElementById('view-lesson').classList.add('hidden');
+      document.getElementById('view-sandbox').classList.toggle('hidden', tabName !== 'sandbox');
+      document.getElementById('view-guidebook').classList.toggle('hidden', tabName !== 'guidebook');
+
+      if (tabName === 'sandbox') updateSandboxSimulation();
+      if (tabName === 'guidebook') renderGuidebook();
+    }
+
+    /**************************************************************
+      * 5. RENDER SKILL TREE MAP
+      **************************************************************/
+    function renderSkillTree() {
+      document.getElementById('mascot-hero').innerHTML = getMascotSVG('idle');
+      const container = document.getElementById('skill-nodes-container');
+      container.innerHTML = '';
+
+      CURRICULUM.forEach((unit) => {
+        const isLocked = !unit.unlocked;
+        const isDone = unit.completed;
+
+        const card = document.createElement('div');
+        card.className = `relative rounded-2xl p-5 border transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4 ${
+          isDone
+            ? 'bg-emerald-950/30 border-emerald-500/50 shadow-md'
+            : isLocked
+            ? 'bg-[#111827]/50 border-[#1e293b] opacity-75'
+            : 'bg-[#111827] border-emerald-500/60 shadow-lg ring-1 ring-emerald-500/30'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-extrabold shrink-0 ${
+              isDone ? 'bg-emerald-500 text-slate-950' : isLocked ? 'bg-slate-800 text-slate-400' : 'bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 glow-green'
+            }">
+              ${isDone ? '✓' : unit.id}
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  ${unit.badge}
+                </span>
+                <span class="text-xs text-amber-400 font-semibold">⚡ +${unit.xpReward} XP</span>
+                ${isDone ? `<span class="text-[11px] font-bold text-emerald-400">★ COMPLETED</span>` : ''}
+              </div>
+              <h3 class="text-base md:text-lg font-bold text-white">${unit.title}</h3>
+              <p class="text-xs md:text-sm text-[#94a3b8] mt-0.5">${unit.subtitle}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+            <button onclick="startUnit(${unit.id})" class="w-full md:w-auto px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all ${
+              isDone
+                ? 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40'
+                : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md'
+            }">
+              ${isDone ? '↻ Replay Level' : '▶ Start Level (Teach + Quiz)'}
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /**************************************************************
+      * 6. INTERACTIVE LESSON ENGINE (TEACH STEP + QUIZZES)
+      **************************************************************/
+    function startUnit(unitId) {
+      playSound('click');
+      const unit = CURRICULUM.find(u => u.id === unitId);
+      if (!unit) return;
+
+      gameState.activeUnitId = unitId;
+      gameState.activeStepIndex = 0;
+      gameState.stepAnswered = false;
+
+      document.getElementById('view-map').classList.add('hidden');
+      document.getElementById('view-sandbox').classList.add('hidden');
+      document.getElementById('view-guidebook').classList.add('hidden');
+      document.getElementById('view-lesson').classList.remove('hidden');
+
+      renderCurrentLessonStep();
+    }
+
+    function exitLesson() {
+      playSound('click');
+      document.getElementById('view-lesson').classList.add('hidden');
+      document.getElementById('view-map').classList.remove('hidden');
+      renderSkillTree();
+    }
+
+    function renderCurrentLessonStep() {
+      const unit = CURRICULUM.find(u => u.id === gameState.activeUnitId);
+      const step = unit.steps[gameState.activeStepIndex];
+      const totalSteps = unit.steps.length;
+      const pct = Math.round(((gameState.activeStepIndex) / totalSteps) * 100);
+
+      gameState.stepAnswered = false;
+      document.getElementById('lesson-feedback-drawer').classList.add('hidden');
+
+      // Update top progress bar
+      document.getElementById('lesson-phase-badge').innerText =
+        step.type === 'teach'
+          ? `📖 STEP ${gameState.activeStepIndex + 1} OF ${totalSteps}: INTERACTIVE CONCEPT LAB`
+          : `🎯 STEP ${gameState.activeStepIndex + 1} OF ${totalSteps}: ARCHITECTURE QUIZ`;
+      document.getElementById('lesson-step-counter').innerText = `${pct}% Complete`;
+      document.getElementById('lesson-progress-bar').style.width = `${Math.max(15, pct)}%`;
+
+      // Update header & mascot
+      document.getElementById('lesson-unit-tag').innerText = `Level ${unit.id} • ${unit.badge}`;
+      document.getElementById('lesson-type-tag').innerText =
+        step.type === 'teach' ? 'Teach First: Interactive Concept Lab' : 'Apply Knowledge: Challenge';
+      document.getElementById('lesson-title').innerText = step.title;
+      document.getElementById('lesson-subtitle').innerText = step.subtitle;
+      document.getElementById('lesson-mascot').innerHTML = getMascotSVG(step.type === 'teach' ? 'teaching' : 'idle');
+
+      const stage = document.getElementById('lesson-stage-container');
+
+      if (step.type === 'teach') {
+        renderTeachStep(stage, step);
+      } else {
+        renderQuizStep(stage, step);
+      }
+    }
+
+    // ==================================================
+    // STEP TYPE A: INTERACTIVE CONCEPT LAB ("TEACH FIRST")
+    // ==================================================
+    function renderTeachStep(stage, step) {
+      stage.innerHTML = `
+        <div class="space-y-5">
+          <!-- Interactive Concept Simulation Box -->
+          <div class="p-4 md:p-5 rounded-2xl bg-slate-950/70 border border-emerald-500/30 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">
+                ⚡ Interactive Concept Playground — Experiment With Architecture Mode:
+              </span>
+              <div class="flex items-center gap-2">
+                <button id="btn-teach-mode-a" onclick="toggleTeachSimulation('${step.interactiveMode}', 'bad')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                  ❌ Naive / Flawed Mode
+                </button>
+                <button id="btn-teach-mode-b" onclick="toggleTeachSimulation('${step.interactiveMode}', 'good')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950 shadow">
+                  ✅ Resilient Architecture
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Interactive Visual for Concept Teaching -->
+            <div id="teach-visual-box" class="p-4 rounded-xl bg-slate-900/90 border border-[#1e293b] flex flex-col items-center justify-center min-h-[185px]">
+              <!-- Populated by toggleTeachSimulation() -->
+            </div>
+          </div>
+
+          <!-- Deep Dive Engineering Explanation -->
+          <div class="p-4 rounded-xl bg-[#090d16] border border-[#1e293b] space-y-3">
+            <h4 class="text-sm font-bold text-emerald-400 flex items-center gap-2">
+              <span>💡</span> How It Works Under the Hood
+            </h4>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-200">
+              ${step.conceptSummary}
+            </p>
+            <div class="pt-2 border-t border-[#1e293b]">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#94a3b8] mb-2">Key Architectural Takeaways:</div>
+              <ul class="space-y-1.5 text-xs md:text-sm">
+                ${step.keyTakeaways.map(t => `<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold">✓</span><span>${t}</span></li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Ready for Quiz Button -->
+          <div class="flex justify-end pt-2">
+            <button onclick="completeTeachStep()" class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 shadow-md transition-transform active:scale-95">
+              Got It! Start Interactive Challenges →
+            </button>
+          </div>
+        </div>
+      `;
+      toggleTeachSimulation(step.interactiveMode, 'good');
+    }
+
+    function toggleTeachSimulation(interactiveMode, mode) {
+      playSound('click');
+      const box = document.getElementById('teach-visual-box');
+      if (!box) return;
+
+      const btnBad = document.getElementById('btn-teach-mode-a');
+      const btnGood = document.getElementById('btn-teach-mode-b');
+
+      if (mode === 'bad') {
+        btnBad.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-500 text-white shadow";
+        btnGood.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30";
+      } else {
+        btnGood.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950 shadow";
+        btnBad.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30";
+      }
+
+      // Domain-specific interactive visual playgrounds
+      if (interactiveMode === 'stateless_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ LOCAL RAM SESSIONS: Request #2 hits Server #2 → 401 Unauthorized (Logged Out!)
+              </div>
+              <div class="grid grid-cols-3 gap-3 max-w-lg mx-auto text-xs font-bold pt-1">
+                <div class="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-300">
+                  🖥️ Server #1<br/><span class="text-[10px] font-normal">RAM: [User_A Session]</span>
+                </div>
+                <div class="p-3 rounded-xl bg-rose-950/80 border-2 border-rose-500 text-rose-200 animate-pulse">
+                  🖥️ Server #2<br/><span class="text-[10px] font-normal">RAM: [Empty!] ❌ 401</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-400">
+                  🖥️ Server #3<br/><span class="text-[10px] font-normal">RAM: [Empty!] ❌ 401</span>
+                </div>
+              </div>
+              <p class="text-xs text-rose-300">Round-Robin sends 66% of user refreshes to servers that don't have their login token in memory.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ STATELESS SERVERS + REDIS CLUSTER: Any server authenticates any request in 0.8ms!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700">🖥️ API Servers #1, #2, #3 (Stateless)</div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-4 py-2.5 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-emerald-200">
+                  ⚡ Shared Redis Session Store (100% Hit Rate)
+                </div>
+              </div>
+              <p class="text-xs text-emerald-300">All 3 API servers read/write session tokens from a shared sub-millisecond Redis cluster.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'cache_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ THUNDERING HERD STAMPEDE: 50,000 Concurrent Cache Misses Crash Postgres!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-slate-800 border border-slate-700">📱 50k Concurrent Reads</div>
+                <span class="text-rose-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-amber-950 border border-amber-500 text-amber-300">⚡ Redis (TTL Expired!)</div>
+                <span class="text-rose-400 font-extrabold">━━►</span>
+                <div class="px-4 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">
+                  🔥 Postgres DB (50,000 Queries • CPU 100% • Crash)
+                </div>
+              </div>
+              <p class="text-xs text-rose-300">Without locking, every concurrent worker independently queries Postgres for the exact same expired key.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ SINGLE-FLIGHT MUTEX LOCK: Only 1 DB Query Executed • 49,999 Served From Cache!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-slate-800 border border-slate-700">📱 50k Concurrent Reads</div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">🔒 Single-Flight Lock (1 Winner)</div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-4 py-2 rounded-xl bg-slate-900 border border-emerald-500/50 text-emerald-300">
+                  🗄️ Postgres DB (1 Query • CPU 4%)
+                </div>
+              </div>
+              <p class="text-xs text-emerald-300">1 worker acquires the mutex to recompute the cache while 49,999 workers wait 3ms and get the fresh value.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'sharding_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ MODULO HASHING (hash(key) % N): Adding 5th Node Invalidates 80% of All Keys!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-lg bg-rose-950 border border-rose-500 text-rose-200">Shard 0 (80% keys moved)</div>
+                <div class="px-3 py-2 rounded-lg bg-rose-950 border border-rose-500 text-rose-200">Shard 1 (80% keys moved)</div>
+                <div class="px-3 py-2 rounded-lg bg-rose-950 border border-rose-500 text-rose-200">Shard 2 (80% keys moved)</div>
+                <div class="px-3 py-2 rounded-lg bg-rose-950 border border-rose-500 text-rose-200">Shard 3 (80% keys moved)</div>
+              </div>
+              <p class="text-xs text-rose-300">Changing modulo divisor from % 4 to % 5 reshuffles almost every user record across the network.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ CONSISTENT HASH RING (0 .. 2³²-1): Adding 5th Node Moves Only ~20% (O(K/N)) of Keys!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-2 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-lg bg-slate-800 border border-emerald-500/40 text-emerald-300">⭕ Ring Node A (Unchanged)</div>
+                <div class="px-3 py-2 rounded-lg bg-slate-800 border border-emerald-500/40 text-emerald-300">⭕ Ring Node B (Unchanged)</div>
+                <div class="px-3 py-2 rounded-lg bg-emerald-950 border-2 border-emerald-500 text-emerald-200">✨ New Node E (Takes 20% slice)</div>
+              </div>
+              <p class="text-xs text-emerald-300">Virtual Nodes on a Consistent Hash Ring guarantee minimal key movement and uniform shard balance.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'consensus_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ ASYNC REPLICATION (N=3, W=1, R=1): Stale Reads & Split-Brain Risk!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-300">Leader Node 1 (v2: $1,000)</div>
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">Follower Node 2 (v1: $0 ❌ Stale Read)</div>
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border border-rose-500 text-rose-300">Follower Node 3 (v1: $0 ❌ Stale Read)</div>
+              </div>
+              <p class="text-xs text-rose-300">With W=1 and R=1, reading from Follower 2 or 3 before async replication finishes returns stale data.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ STRICT QUORUM (N=3, W=2, R=2 • R+W>N): Guaranteed Overlap on Latest Write!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border-2 border-emerald-500 text-emerald-200">🗳️ Write Quorum (Node 1 + Node 2 = v2)</div>
+                <span class="text-emerald-400 font-extrabold">∩</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border-2 border-teal-400 text-teal-200">🔍 Read Quorum (Node 2 + Node 3 => Sees v2!)</div>
+              </div>
+              <p class="text-xs text-emerald-300">Because 2 + 2 > 3, every read quorum intersects with the write quorum on at least 1 up-to-date replica.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'truetime_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ NTP CLOCK SKEW (±150ms): Multi-Region Last-Write-Wins Drops Newer Updates!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-slate-800 border border-rose-500 text-rose-300">🇺🇸 US-East Clock: 12:00:00.200 (Write A)</div>
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">🇪🇺 EU Clock Drifted: 12:00:00.050 (Later Write B Dropped!)</div>
+              </div>
+              <p class="text-xs text-rose-300">Without bounded physical clock uncertainty, wall-clock timestamps violate causal order across continents.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ SPANNER TRUETIME (GPS + Atomic Clocks • 2ε < 7ms Commit Wait): External Consistency!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">🛰️ GPS + Atomic Clock Interval [earliest, latest]</div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border border-teal-400 text-teal-200">⏱️ Wait 2ε (6ms) => Globally Serialized Timestamp</div>
+              </div>
+              <p class="text-xs text-emerald-300">Waiting out the tiny hardware uncertainty window guarantees strict global linearizability with zero cross-region locks.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'storage_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ B-TREE RANDOM WRITES: 16KB Page Read-Modify-Write Thrashing SSD I/O!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">🔥 Random 100-byte Write -> Overwrites Full 16KB Disk Page</div>
+              </div>
+              <p class="text-xs text-rose-300">Random key inserts force B-Trees to split pages and perform random disk seeks on every write.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ LSM-TREE + BLOOM FILTER: Sequential Append Writes + O(1) Negative Key Lookups!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">⚡ RAM MemTable + Sequential WAL</div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border border-teal-400 text-teal-200">🌸 Bloom Filter (Skips 99% Missing Key Reads)</div>
+              </div>
+              <p class="text-xs text-emerald-300">All writes append sequentially at maximum disk speed while Bloom Filters prevent unnecessary SSTable lookups.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'mesh_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ JSON REST OVER HTTP/1.1: High CPU Text Serialization + Head-of-Line Blocking!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">🐢 25x Separate HTTP/1.1 Connections + Verbose JSON Parsing</div>
+              </div>
+              <p class="text-xs text-rose-300">Internal microservice fanout wastes 70% of CPU parsing text JSON and waiting on blocked TCP sockets.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ gRPC (HTTP/2 BINARY PROTOBUF) + ENVOY SIDECAR MESH: 8x Faster East-West RPC!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">⚡ Single Multiplexed HTTP/2 TCP Stream</div>
+                <span class="text-emerald-400 font-extrabold">+</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border border-teal-400 text-teal-200">🕸️ Envoy Sidecar Proxy (Zero-Code mTLS & Retries)</div>
+              </div>
+              <p class="text-xs text-emerald-300">Binary Protocol Buffers and Envoy sidecars standardize security, retries, and sub-millisecond RPCs.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'vector_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ BRUTE-FORCE FLAT VECTOR SCAN O(N × D): 50M Vectors = 3.8 Seconds Per Query!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">🔥 Computing 50,000,000 × 1536 Cosine Distances on Every Search</div>
+              </div>
+              <p class="text-xs text-rose-300">Exhaustive k-NN comparison scales linearly with dataset size, saturating CPU at scale.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ HYBRID BM25 INVERTED INDEX + HNSW GRAPH O(log N): Sub-8ms Semantic Retrieval!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">📖 BM25 Inverted Index (Keywords)</div>
+                <span class="text-emerald-400 font-extrabold">+</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border border-teal-400 text-teal-200">🕸️ HNSW Multi-Layer Proximity Graph (Semantics)</div>
+              </div>
+              <p class="text-xs text-emerald-300">Logarithmic graph navigation combined with Reciprocal Rank Fusion delivers 98% recall in <8ms.</p>
+            </div>
+          `;
+        }
+      } else if (interactiveMode === 'tracing_demo') {
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ TAIL LATENCY AMPLIFICATION (50 Parallel Calls @ 99% SLA): 39.5% Slow User Requests!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">🐢 P(All 50 Fast) = (0.99)⁵⁰ = 60.5% • 1 GC Pause Stalls Entire Page!</div>
+              </div>
+              <p class="text-xs text-rose-300">Without distributed trace IDs or hedged requests, a single slow leaf service ruins user tail latency.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ OPENTELEMETRY W3C TRACE + HEDGED REQUESTS (p95 Backup Read): p99 Cut by 80%!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">🔍 W3C traceparent Flamegraph</div>
+                <span class="text-emerald-400 font-extrabold">+</span>
+                <div class="px-3 py-2 rounded-xl bg-teal-950 border border-teal-400 text-teal-200">🏇 Hedged Read After 15ms (Bypasses GC Pause)</div>
+              </div>
+              <p class="text-xs text-emerald-300">Propagating trace context and issuing hedged requests eliminates tail latency spikes across fanout trees.</p>
+            </div>
+          `;
+        }
+      } else {
+        // resilience_demo
+        if (mode === 'bad') {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold">
+                ⚠️ NO CIRCUIT BREAKER: 500/500 API Gateway Threads Blocked on Slow Payment API!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border-2 border-rose-500 text-rose-200 animate-pulse">
+                  🖥️ Checkout API (500/500 Threads Blocked • 504 Timeout)
+                </div>
+                <span class="text-rose-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-rose-950 border border-rose-500 text-rose-300">
+                  🐢 Slow 3rd-Party Payment Service (15,000ms latency)
+                </div>
+              </div>
+              <p class="text-xs text-rose-300">One slow dependency consumes all worker threads, taking down unrelated endpoints across the entire app.</p>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="w-full text-center space-y-3">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">
+                ✓ CIRCUIT BREAKER (OPEN) + KAFKA QUEUE: Checkout Completes in 35ms!
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold pt-1">
+                <div class="px-3 py-2 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">
+                  🖥️ Checkout API (Healthy • 35ms)
+                </div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-amber-950 border border-amber-400 text-amber-300">
+                  ⚡ Circuit Breaker [OPEN: Fail-Fast]
+                </div>
+                <span class="text-emerald-400 font-extrabold">━━►</span>
+                <div class="px-3 py-2 rounded-xl bg-sky-950 border border-sky-400 text-sky-200">
+                  📨 Async Kafka Payment Queue
+                </div>
+              </div>
+              <p class="text-xs text-emerald-300">Tripping the breaker prevents thread exhaustion and queues orders asynchronously until the downstream recovers.</p>
+            </div>
+          `;
+        }
+      }
+    }
+
+    function completeTeachStep() {
+      playSound('correct');
+      gameState.activeStepIndex++;
+      renderCurrentLessonStep();
+    }
+
+    // ==================================================
+    // STEP TYPE B: INTERACTIVE QUIZ / BLUEPRINT CHALLENGE
+    // ==================================================
+    function renderQuizStep(stage, step) {
+      let diagramHtml = '';
+      if (step.type === 'blueprint') {
+        diagramHtml = `
+          <div class="p-4 rounded-2xl bg-slate-950/70 border border-[#1e293b] mb-4">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-teal-400 mb-3">
+              🏗️ Interactive Architecture Blueprint — Select the Optimal Component Below:
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 py-2 text-xs font-bold">
+              <div class="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700">📱 Client Requests</div>
+              <span class="text-emerald-400 font-bold">━━►</span>
+              <div class="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700">⚖️ API Gateway / LB</div>
+              <span class="text-emerald-400 font-bold">━━►</span>
+              <div id="blueprint-slot-badge" class="px-4 py-3 rounded-xl border-2 border-dashed border-amber-400 bg-amber-500/10 text-amber-300 transition-all">
+                ❓ [Select Architectural Fix Below]
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      stage.innerHTML = `
+        <div class="space-y-4">
+          ${diagramHtml}
+          <div class="text-xs font-bold uppercase tracking-wider text-[#94a3b8]">
+            Choose the best engineering solution:
+          </div>
+          <div id="quiz-options-list" class="space-y-3">
+            ${step.options.map((opt, i) => `
+              <button onclick="submitQuizOption(${i})" id="quiz-opt-${i}" class="w-full p-4 rounded-xl border border-[#1e293b] bg-[#090d16] hover:border-emerald-500/60 text-left transition-all flex items-start gap-3.5 group">
+                <div class="w-7 h-7 rounded-lg bg-[#111827] border border-[#1e293b] group-hover:border-emerald-500/50 flex items-center justify-center text-xs font-bold shrink-0">
+                  ${String.fromCharCode(65 + i)}
+                </div>
+                <div class="text-sm font-semibold text-white leading-snug pt-0.5">
+                  ${opt.label}
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function submitQuizOption(optionIdx) {
+      if (gameState.stepAnswered) return;
+      gameState.stepAnswered = true;
+
+      const unit = CURRICULUM.find(u => u.id === gameState.activeUnitId);
+      const step = unit.steps[gameState.activeStepIndex];
+      const selected = step.options[optionIdx];
+
+      const btn = document.getElementById(`quiz-opt-${optionIdx}`);
+      const slotBadge = document.getElementById('blueprint-slot-badge');
+
+      const drawer = document.getElementById('lesson-feedback-drawer');
+      const icon = document.getElementById('feedback-icon');
+      const heading = document.getElementById('feedback-heading');
+      const explanation = document.getElementById('feedback-explanation');
+
+      drawer.classList.remove('hidden');
+
+      if (selected.isCorrect) {
+        playSound('correct');
+        gameState.xp += 25;
+        updateHUD();
+
+        btn.className = "w-full p-4 rounded-xl border-2 border-emerald-500 bg-emerald-500/15 text-left transition-all flex items-start gap-3.5";
+        if (slotBadge) {
+          slotBadge.className = "px-4 py-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold";
+          slotBadge.innerText = `✓ ${selected.label}`;
+        }
+
+        document.getElementById('lesson-mascot').innerHTML = getMascotSVG('celebrating');
+        drawer.className = "rounded-2xl p-5 border border-emerald-500/50 bg-emerald-950/50 text-emerald-100 transition-all shadow-lg";
+        icon.className = "w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center text-xl shrink-0 font-bold";
+        icon.innerText = "✓";
+        heading.innerText = "SLA Verified! +25 XP";
+        explanation.innerText = selected.explanation;
+      } else {
+        playSound('wrong');
+        gameState.hearts = Math.max(1, gameState.hearts - 1);
+        updateHUD();
+
+        btn.className = "w-full p-4 rounded-xl border-2 border-rose-500 bg-rose-500/15 text-left transition-all flex items-start gap-3.5 animate-shake";
+        document.getElementById('lesson-mascot').innerHTML = getMascotSVG('alert');
+
+        // Also highlight the correct option
+        step.options.forEach((opt, idx) => {
+          if (opt.isCorrect) {
+            const correctBtn = document.getElementById(`quiz-opt-${idx}`);
+            if (correctBtn) correctBtn.className = "w-full p-4 rounded-xl border-2 border-emerald-500/70 bg-emerald-500/10 text-left transition-all flex items-start gap-3.5";
+          }
+        });
+
+        drawer.className = "rounded-2xl p-5 border border-rose-500/50 bg-rose-950/50 text-rose-100 transition-all shadow-lg";
+        icon.className = "w-10 h-10 rounded-xl bg-rose-500 text-white flex items-center justify-center text-xl shrink-0 font-bold";
+        icon.innerText = "✕";
+        heading.innerText = "Outage Detected! Let's Learn Why:";
+        explanation.innerText = selected.explanation;
+      }
+    }
+
+    function advanceLessonStep() {
+      playSound('click');
+      const unit = CURRICULUM.find(u => u.id === gameState.activeUnitId);
+      if (gameState.activeStepIndex + 1 < unit.steps.length) {
+        gameState.activeStepIndex++;
+        renderCurrentLessonStep();
+      } else {
+        completeUnit(unit);
+      }
+    }
+
+    function completeUnit(unit) {
+      playSound('levelup');
+      unit.completed = true;
+      gameState.xp += unit.xpReward;
+      gameState.streak++;
+
+      // Boost mastery score for domain
+      gameState.mastery[unit.domain] = 100;
+
+      // Unlock next unit
+      const nextUnit = CURRICULUM.find(u => u.id === unit.id + 1);
+      if (nextUnit) nextUnit.unlocked = true;
+
+      updateHUD();
+      fireConfetti();
+
+      // Render Celebration Screen inside lesson stage
+      document.getElementById('lesson-feedback-drawer').classList.add('hidden');
+      document.getElementById('lesson-progress-bar').style.width = '100%';
+      document.getElementById('lesson-step-counter').innerText = '100% Complete';
+      document.getElementById('lesson-mascot').innerHTML = getMascotSVG('celebrating');
+
+      const stage = document.getElementById('lesson-stage-container');
+      stage.innerHTML = `
+        <div class="text-center py-6 space-y-5">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-emerald-400 to-teal-500 text-slate-950 text-4xl font-extrabold shadow-xl">
+            🏆
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              Level Completed!
+            </span>
+            <h3 class="text-2xl font-extrabold mt-2">${unit.title} Mastered!</h3>
+            <p class="text-sm text-[#94a3b8] max-w-md mx-auto mt-1">
+              You studied the architectural trade-offs, solved real-world outages, and unlocked the next tier of distributed systems engineering.
+            </p>
+          </div>
+
+          <div class="flex justify-center gap-4">
+            <div class="px-5 py-3 rounded-2xl bg-[#090d16] border border-[#1e293b]">
+              <div class="text-xs text-[#94a3b8]">XP Earned</div>
+              <div class="text-xl font-extrabold text-amber-400">+${unit.xpReward} XP</div>
+            </div>
+            <div class="px-5 py-3 rounded-2xl bg-[#090d16] border border-[#1e293b]">
+              <div class="text-xs text-[#94a3b8]">Domain Mastery</div>
+              <div class="text-xl font-extrabold text-emerald-400">100%</div>
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button onclick="exitLesson()" class="px-8 py-3.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-lg transition-transform active:scale-95">
+              Continue to Skill Tree Path →
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    /**************************************************************
+      * 7. LIVE TRAFFIC LAB (SANDBOX SIMULATOR)
+      **************************************************************/
+    let sandboxState = {
+      cdn: true,
+      redis: true,
+      shards: false,
+      kafka: false
+    };
+
+    function triggerViralSpike() {
+      playSound('wrong');
+      const slider = document.getElementById('sandbox-qps-slider');
+      if (slider) {
+        slider.value = 120000;
+        updateSandboxSimulation();
+      }
+    }
+
+    function toggleSandboxComponent(comp) {
+      playSound('click');
+      sandboxState[comp] = !sandboxState[comp];
+
+      const btn = document.getElementById(`sb-toggle-${comp}`);
+      const badge = document.getElementById(`sb-badge-${comp}`);
+      if (sandboxState[comp]) {
+        btn.className = "p-3 rounded-xl border text-left transition-all bg-emerald-500/15 border-emerald-500/50";
+        badge.className = "text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-bold";
+        badge.innerText = "ON";
+      } else {
+        btn.className = "p-3 rounded-xl border text-left transition-all bg-[#090d16] border-[#1e293b]";
+        badge.className = "text-[10px] px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-bold";
+        badge.innerText = "OFF";
+      }
+      updateSandboxSimulation();
+    }
+
+    function updateSandboxSimulation() {
+      const qps = parseInt(document.getElementById('sandbox-qps-slider').value, 10);
+      document.getElementById('sandbox-qps-display').innerText = qps.toLocaleString() + ' QPS';
+
+      // Calculate effective DB load based on active components
+      let effectiveQps = qps;
+      if (sandboxState.cdn) effectiveQps *= 0.35;      // CDN offloads 65%
+      if (sandboxState.redis) effectiveQps *= 0.20;    // Redis offloads 80% of remainder
+      if (sandboxState.kafka) effectiveQps *= 0.70;    // Kafka smooths write spikes
+
+      const shardDivisor = sandboxState.shards ? 4 : 1;
+      const dbQpsPerShard = effectiveQps / shardDivisor;
+
+      // Calculate CPU % (assume 1 shard handles 8,000 uncached QPS at 100% CPU)
+      const cpuPct = Math.min(100, Math.round((dbQpsPerShard / 8000) * 100));
+
+      // Calculate p99 Latency
+      let latencyMs = 12;
+      if (cpuPct > 85) {
+        latencyMs = Math.round(120 + (cpuPct - 85) * 45);
+      } else {
+        latencyMs = Math.round(8 + (cpuPct * 0.4));
+      }
+
+      // Render metrics
+      const latEl = document.getElementById('sb-metric-latency');
+      const latStat = document.getElementById('sb-status-latency');
+      latEl.innerText = latencyMs + ' ms';
+      if (latencyMs <= 100) {
+        latEl.className = "text-2xl font-extrabold text-emerald-400 mt-1";
+        latStat.className = "text-[11px] text-emerald-400 mt-0.5";
+        latStat.innerText = "✓ Within <100ms SLA";
+      } else {
+        latEl.className = "text-2xl font-extrabold text-rose-400 mt-1";
+        latStat.className = "text-[11px] text-rose-400 mt-0.5";
+        latStat.innerText = "⚠️ SLA Violation (>100ms tail latency)";
+      }
+
+      const cpuEl = document.getElementById('sb-metric-cpu');
+      cpuEl.innerText = cpuPct + '%';
+      cpuEl.className = cpuPct >= 90 ? "text-2xl font-extrabold text-rose-400 mt-1" : "text-2xl font-extrabold text-sky-400 mt-1";
+
+      const upEl = document.getElementById('sb-metric-uptime');
+      const upStat = document.getElementById('sb-status-uptime');
+      if (cpuPct >= 98) {
+        upEl.innerText = "94.20%";
+        upEl.className = "text-2xl font-extrabold text-rose-400 mt-1";
+        upStat.innerText = "🔥 Database Connection Pool Exhausted!";
+        upStat.className = "text-[11px] text-rose-400 mt-0.5";
+      } else {
+        upEl.innerText = "99.99%";
+        upEl.className = "text-2xl font-extrabold text-emerald-400 mt-1";
+        upStat.innerText = "Zero dropped requests";
+        upStat.className = "text-[11px] text-emerald-400 mt-0.5";
+      }
+
+      renderSandboxSVG(cpuPct, qps > 60000);
+    }
+
+    function renderSandboxSVG(cpuPct, isHighTraffic) {
+      const svg = document.getElementById('sandbox-svg');
+      const dbColor = cpuPct >= 90 ? "#ef4444" : "#10b981";
+      const animClass = isHighTraffic ? "animate-packet-fast" : "animate-packet";
+
+      svg.innerHTML = `
+        <!-- Wires -->
+        <line x1="95" y1="100" x2="220" y2="100" stroke="#334155" stroke-width="4"/>
+        <line x1="95" y1="100" x2="220" y2="100" stroke="#10b981" stroke-width="3" class="${animClass}"/>
+
+        <line x1="310" y1="100" x2="430" y2="100" stroke="#334155" stroke-width="4"/>
+        <line x1="310" y1="100" x2="430" y2="100" stroke="#06b6d4" stroke-width="3" class="${animClass}"/>
+
+        <line x1="530" y1="100" x2="640" y2="100" stroke="#334155" stroke-width="4"/>
+        <line x1="530" y1="100" x2="640" y2="100" stroke="${dbColor}" stroke-width="3" class="${animClass}"/>
+
+        <!-- Client Node -->
+        <rect x="15" y="70" width="80" height="60" rx="12" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+        <text x="55" y="96" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">📱 Users</text>
+        <text x="55" y="114" text-anchor="middle" fill="#94a3b8" font-size="9">Clients</text>
+
+        <!-- Edge / LB Node -->
+        <rect x="210" y="70" width="100" height="60" rx="12" fill="#0f172a" stroke="${sandboxState.cdn ? '#10b981' : '#475569'}" stroke-width="2"/>
+        <text x="260" y="96" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">${sandboxState.cdn ? '🌐 CDN + LB' : '⚖️ L7 Load Bal'}</text>
+        <text x="260" y="114" text-anchor="middle" fill="#34d399" font-size="9">${sandboxState.cdn ? '65% Offloaded' : 'Direct Pass'}</text>
+
+        <!-- Cache / Queue Node -->
+        <rect x="425" y="70" width="105" height="60" rx="12" fill="#0f172a" stroke="${sandboxState.redis ? '#06b6d4' : '#475569'}" stroke-width="2"/>
+        <text x="477" y="96" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">${sandboxState.redis ? '⚡ Redis Cluster' : '🖥️ API Workers'}</text>
+        <text x="477" y="114" text-anchor="middle" fill="#38bdf8" font-size="9">${sandboxState.redis ? 'Sub-2ms Cache' : 'Uncached'}</text>
+
+        <!-- Database Node -->
+        <rect x="635" y="65" width="110" height="70" rx="12" fill="#0f172a" stroke="${dbColor}" stroke-width="2.5"/>
+        <text x="690" y="92" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">${sandboxState.shards ? '🧩 4x DB Shards' : '🗄️ Primary DB'}</text>
+        <text x="690" y="110" text-anchor="middle" fill="${dbColor}" font-size="10" font-weight="bold">CPU: ${cpuPct}%</text>
+      `;
+    }
+
+    /**************************************************************
+      * 8. CONCEPT GUIDEBOOK (STUDY CARDS)
+      **************************************************************/
+    function renderGuidebook() {
+      const container = document.getElementById('guidebook-cards-container');
+      container.innerHTML = CURRICULUM.map(unit => `
+        <div class="p-4 rounded-xl bg-[#090d16] border border-[#1e293b] space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">${unit.badge}</span>
+            <button onclick="startUnit(${unit.id})" class="text-xs font-bold text-teal-400 hover:underline">Practice Level →</button>
+          </div>
+          <h3 class="text-base font-bold text-white">${unit.title}</h3>
+          <p class="text-xs text-[#94a3b8] leading-relaxed">${unit.steps[0].conceptSummary}</p>
+        </div>
+      `).join('');
+    }
+
+    /**************************************************************
+      * 9. CONFETTI PARTICLE ENGINE
+      **************************************************************/
+    function fireConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = Array.from({ length: 75 }, () => ({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        vx: (Math.random() - 0.5) * 14,
+        vy: (Math.random() - 0.7) * 14 - 4,
+        size: Math.random() * 7 + 4,
+        color: ['#10b981', '#06b6d4', '#f59e0b', '#ec4899', '#3b82f6'][Math.floor(Math.random() * 5)],
+        alpha: 1
+      }));
+
+      function frame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.35; // gravity
+          p.alpha -= 0.014;
+          if (p.alpha > 0) {
+            active = true;
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+          }
+        });
+        if (active) requestAnimationFrame(frame);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProgress();
+      updateHUD();
+      renderSkillTree();
+    });
+  </script>
+
+
+</body></html>
